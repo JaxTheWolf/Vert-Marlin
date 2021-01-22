@@ -1870,7 +1870,7 @@
 #define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
-#define Z_AFTER_PROBING             5 // Z position after probing is done
+//#define Z_AFTER_PROBING             5 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
@@ -2270,8 +2270,8 @@
  * these options to restore the prior leveling state or to always enable
  * leveling immediately after G28.
  */
-#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+//#define RESTORE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
@@ -2360,7 +2360,7 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
   #define UBL_MESH_EDIT_MOVES_Z                 // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500               // Save the currently active mesh in the current slot on M500
-  #define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.                                            
+  //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.                                            
 
 #elif ENABLED(MESH_BED_LEVELING)
 
