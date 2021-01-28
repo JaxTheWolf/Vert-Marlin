@@ -72,7 +72,7 @@
 // Author info of this build printed to the host during boot and M115
 #define STRING_CONFIG_H_AUTHOR "(Vertabreaker)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
-#define SHORT_BUILD_VERSION "Bugfix Build 502"
+#define SHORT_BUILD_VERSION "Bugfix Build 503"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@
 //#define GTA20C      // A20C & Variants
 //#define GTA20T      // A20T & Variants
 //#define GTA20CT     // A20CT & Variants
-//#define MECREATOR2  // Mecreator2 & Variants     
+//#define MECREATOR2  // Mecreator2 & Variants
 //#define I3PROA      // I3ProA & Variants
 //#define I3PROB      // I3PROB & Variants
 //#define I3PROC      // I3PROC & Variants
@@ -113,75 +113,75 @@
     #define GTA10
     #define MIX
   #endif
-  
+
   #if ENABLED (GTA10PRO)
     #define GTA10
-    #define YHCB2004 // A10 Pro  Screen 
+    #define YHCB2004 // A10 Pro  Screen
     #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10MPRO)
     #define GTA10
     #define MIX
-    #define YHCB2004 // A10 Pro  Screen 
+    #define YHCB2004 // A10 Pro  Screen
     #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10CPRO)
     #define GTA10
     #define CYCLOPS
-    #define YHCB2004 // A10 Pro  Screen 
+    #define YHCB2004 // A10 Pro  Screen
     #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10TPRO)
     #define GTA10
     #define MIXT
-    #define YHCB2004 // A10 Pro  Screen 
+    #define YHCB2004 // A10 Pro  Screen
     #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10CTPRO)
     #define GTA10
     #define CYCLOPST
-    #define YHCB2004 // A10 Pro  Screen 
+    #define YHCB2004 // A10 Pro  Screen
     #define ULTIPANEL
   #endif
 
   #if ENABLED (GTA10T)
     #define GTA10
     #define MIXT
-  #endif 
-  
+  #endif
+
   #if ENABLED (GTA10C)
     #define GTA10
     #define CYCLOPS
-  #endif 
+  #endif
 
   #if ENABLED (GTA10CT)
     #define GTA10
     #define CYCLOPST
-  #endif 
+  #endif
 
   #if ENABLED (GTA20M)
     #define GTA20
     #define MIX
-  #endif 
+  #endif
 
   #if ENABLED (GTA20T)
     #define GTA20
     #define MIXT
-  #endif 
+  #endif
 
   #if ENABLED (GTA20C)
     #define GTA20
     #define CYCLOPS
-  #endif 
+  #endif
 
   #if ENABLED (GTA20CT)
     #define GTA20
     #define CYCLOPST
-  #endif 
+  #endif
 
 //----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
@@ -198,26 +198,26 @@
   #if ENABLED (GTA30M)
     #define GTA30
     #define MIX
-  #endif 
+  #endif
 
   #if ENABLED (GTA30T)
     #define GTA30
     #define MIXT
-  #endif 
+  #endif
 
   #if ENABLED (GTA30C)
     #define GTA30
     #define CYCLOPS
-  #endif 
+  #endif
 
   #if ENABLED (GTA30CT)
     #define GTA30
     #define CYCLOPST
-  #endif 
+  #endif
 //----------------------------------------------------------------------------------------------------
 //Melzi Boards - vscode: default_envs = melzi in platformio.ini
 
-//#define ENDER3      // ENDER3 & Variants - testing 
+//#define ENDER3      // ENDER3 & Variants - testing
 
 //----------------------------------------------------------------------------------------------------
 //Based on https://github.com/codiac2600/SKR-MK3s-V1.4-Beta
@@ -229,14 +229,14 @@
 
 //#define BEAR_TURBO  // Bear MK3/MK3s Turbo & Variants - testing
 
-//(Bear & Bear_Turbo)Switch from Bear MK3 to MK2.5 
+//(Bear & Bear_Turbo)Switch from Bear MK3 to MK2.5
 
 //#define MK25        // Enable to set 12V for Bear MK2.5
 
 //(Bear & Bear_Turbo)Z mod pick only 1 or none for stock
 
-//#define Z320        // Enable to change Zmax to 320  
-//#define Z420        // Enable to change Zmax to 420 
+//#define Z320        // Enable to change Zmax to 320
+//#define Z420        // Enable to change Zmax to 420
 
 //(Bear & Bear_Turbo)Extruder mod pick only 1 or none for stock
 
@@ -265,11 +265,11 @@
 
 //(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
 
-//Either Mix or cyclops can be used on M variants 
+//Either Mix or cyclops can be used on M variants
 //#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
-//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder 
+//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
 
-//Either Mix T or Cyclops T can be used on T variants 
+//Either Mix T or Cyclops T can be used on T variants
 //#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
 //#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
 
@@ -307,12 +307,12 @@
 
 //Custom driver set if none selected above
 
-//#define CUSTOMDRIVERS     // Define Custom driver set and direction 
+//#define CUSTOMDRIVERS     // Define Custom driver set and direction
 #if ENABLED (CUSTOMDRIVERS) //(Not used unless CUSTOMDRTIVERS is enabled)
    //'A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160'
    //'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE'
    //'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE'
-   
+
  // Timings (Not used unless CUSTOMDRTIVERS is enabled)
    #define X_DRIVER_TYPE  TMC2208_STANDALONE
    #define Y_DRIVER_TYPE  TMC2208_STANDALONE
@@ -338,7 +338,7 @@
 
 //#define MECHFAN     // Enable Mechatronics fan 80 pwm
 //#define RADIALFAN   // Enable Radial fan 50 pwm
-//#define BEAR_FAN    // Enable fan 20 pwm on when not a bear model 
+//#define BEAR_FAN    // Enable fan 20 pwm on when not a bear model
 
 //------------------------------
 //Optional settings & features |
@@ -361,7 +361,7 @@
 //Disable to save resources on hardware you dont use
 
 //#define NOSCREEN         // Disable the screen - Save alot of resources good for octoprint users
-//#define NOSDCARD         // Disable the sdcard slot - Save alot of resources good for octoprint users 
+//#define NOSDCARD         // Disable the sdcard slot - Save alot of resources good for octoprint users
 
 //Used to switch the default board of the model selected in step 1
 
@@ -378,9 +378,9 @@
 
 //----------------------------------------------------------------------------------------------------
 
-//Multiextruder 
+//Multiextruder
 #if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
-  #define MULTIEXTRUDER 
+  #define MULTIEXTRUDER
 #endif
 
 //TMC drivers
@@ -430,13 +430,13 @@
   #define INVERTE     // (E direction False) comment out to disabe if wrong direction for (E direction true) - Geared exturders invert E (stock)
 #else
   //#define INVERTE  // Enable to force on if the above condition is not matched.
-#endif 
+#endif
 
 // Not used if CUSTOMDRIVERS enabled
 #if ENABLED (TMCCHIPS)
   #define INVERTXYZ   // Invert XYZ direction disable if wrong direction.
 #else
-  //#define INVERTXYZ // Enable to force on 
+  //#define INVERTXYZ // Enable to force on
 #endif
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -478,16 +478,16 @@
 #elif ANY(AT2560, AT1280)
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 3
-#elif ENABLED (NEWMODEL) 
+#elif ENABLED (NEWMODEL)
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 -1
 #elif ANY (BEAR, BEAR_TURBO)
   #define SERIAL_PORT 0
   #define SERIAL_PORT_2 -1
-#elif ENABLED (CUSTOMBOARD)  
-#else 
+#elif ENABLED (CUSTOMBOARD)
+#else
   #define SERIAL_PORT 0
-  //#define SERIAL_PORT_2 -1  
+  //#define SERIAL_PORT_2 -1
 #endif
 
 /**
@@ -514,10 +514,10 @@
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
 #if ENABLED (CUSTOMBOARD)
-//use custom defined board 
+//use custom defined board
 #elif ENABLED (GTA10)
   #define MOTHERBOARD BOARD_GT2560_V3
-#elif ENABLED (GTA20) 
+#elif ENABLED (GTA20)
   #define MOTHERBOARD BOARD_GT2560_V3_A20
 #elif ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
   #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
@@ -525,12 +525,12 @@
   #define MOTHERBOARD BOARD_GT2560_V3_MC2
 #elif ANY (GTA30, GTD200)
   #define MOTHERBOARD BOARD_GTM32_MINI_A30
-#elif ENABLED (GTE180) 
+#elif ENABLED (GTE180)
   #define MOTHERBOARD BOARD_GTM32_MINI
 #elif ENABLED (GTM201)
   #define MOTHERBOARD BOARD_GTM32_REV_B
 #elif ENABLED (ENDER3)
-  #define MOTHERBOARD BOARD_MELZI_CREALITY  
+  #define MOTHERBOARD BOARD_MELZI_CREALITY
 #elif ENABLED (BEAR)
   #define MOTHERBOARD BOARD_BTT_SKR_V1_4
 #elif ENABLED (BEAR_TURBO)
@@ -539,11 +539,11 @@
   #define MOTHERBOARD BOARD_RAMPS_14_EFB   // define new models mainboard
 #else
   #error No model/frame selected in setup.
- #endif 
+ #endif
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-#define CUSTOM_MACHINE_NAME "3D Printer" 
+#define CUSTOM_MACHINE_NAME "3D Printer"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like http://www.uuidgenerator.net/version4
@@ -699,8 +699,8 @@
  *   - This implementation supports up to two mixing extruders.
  *   - Enable DIRECT_MIXING_IN_G1 for M165 and mixing in G1 (from Pia Taubert's reference implementation).
  */
-#if ANY (MIX, MIXT) 
-  #define MIXING_EXTRUDER 
+#if ANY (MIX, MIXT)
+  #define MIXING_EXTRUDER
   #define MIXING_VIRTUAL_TOOLS 8   // Use the Virtual Tool method with M163 and M164
   #define DIRECT_MIXING_IN_G1      // Allow ABCDHI mix factors in G1 movement commands
   #define GRADIENT_MIX             // Support for gradient mixing with M166 and LCD
@@ -709,7 +709,7 @@
 
 #if ENABLED (MIX)
   #define MIXING_STEPPERS 2        // Number of steppers in your mixing extruder
-#elif ENABLED (MIXT)  
+#elif ENABLED (MIXT)
   #define MIXING_STEPPERS 3        // Number of steppers in your mixing extruder
 #endif
 
@@ -925,7 +925,7 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   //FIND YOUR OWN: "M303 U1 E0 S250 C8" HOTEND PID
-  #if ANY(ENDER3, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)  
+  #if ANY(ENDER3, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
     #define  DEFAULT_Kp 22.2
     #define  DEFAULT_Ki 1.08
     #define  DEFAULT_Kd 114
@@ -940,11 +940,11 @@
   #elif ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUELEX, GTA30, GTE180, GTD200)
     #define  DEFAULT_Kp 45.80
     #define  DEFAULT_Ki 3.61
-    #define  DEFAULT_Kd 145.39 
+    #define  DEFAULT_Kd 145.39
   #elif ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_Kp 16.13
     #define DEFAULT_Ki 1.16
-    #define DEFAULT_Kd 56.23 
+    #define DEFAULT_Kd 56.23
   #elif ENABLED (NEWMODEL) // Hotend PID
     #define  DEFAULT_Kp 1
     #define  DEFAULT_Ki 1
@@ -981,7 +981,7 @@
  * heater. If your configuration is significantly different than this and you don't understand
  * the issues involved, don't use bed PID until someone else verifies that your hardware works.
  */
-#if DISABLED (GTE180) 
+#if DISABLED (GTE180)
   #define PIDTEMPBED
 #endif
 //#define BED_LIMIT_SWITCHING
@@ -1016,14 +1016,14 @@
   #elif ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_bedKp 126.13
     #define DEFAULT_bedKi 4.30
-    #define DEFAULT_bedKd 924.76  
+    #define DEFAULT_bedKd 924.76
   #elif ENABLED (NEWMODEL) // BED PID
     #define  DEFAULT_bedKp 1
     #define  DEFAULT_bedKi 1
     #define  DEFAULT_bedKd 1
   #else //A10 & A20
     #define  DEFAULT_bedKp 42.96
-    #define  DEFAULT_bedKi 8.32 
+    #define  DEFAULT_bedKi 8.32
     #define  DEFAULT_bedKd 147.80
   #endif
 
@@ -1219,7 +1219,7 @@
 //#define E5_DRIVER_TYPE A4988
 //#define E6_DRIVER_TYPE A4988
 //#define E7_DRIVER_TYPE A4988
- 
+
 
 #if ENABLED (TMC2208S)
   #define X_DRIVER_TYPE  TMC2208_STANDALONE
@@ -1481,7 +1481,7 @@
  * With this option each E stepper can have its own factors for the
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
- */ 
+ */
 #define DISTINCT_E_FACTORS
 
 /**
@@ -1492,30 +1492,30 @@
 #if DISABLED (NEWMODEL)
 #if DISABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }  // ungeared extruder found on a10/a20/a30/i3pro
-  //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 95 } 
+  //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 95 }
   //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 2560, 95 } // M8 Z rod steps 2560 found on old I3pro
 #elif ENABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 430 } // geared extruder found on M & T variants
-  //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 800, 430 } 
-  //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 2560, 430 } // M8 Z rod steps 2560 found on old I3pro 
+  //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 800, 430 }
+  //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 2560, 430 } // M8 Z rod steps 2560 found on old I3pro
 #endif
 
-#if ENABLED (GREYBEAR) && ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO) 
+#if ENABLED (GREYBEAR) && ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 830 }  // BMG1.8 + grey
-#elif ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)  
+#elif ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 830 }  // BMG1.8
 #elif ENABLED (GREYBEAR) && ENABLED (BMG9) && ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 1660 }  // BMG 0.9 +grey
-#elif ENABLED (BMG9) && ANY (BEAR, BEAR_TURBO) 
+#elif ENABLED (BMG9) && ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 1660 }  // BMG 0.9
-#elif ENABLED (GREYBEAR) && ANY (BEAR, BEAR_TURBO) 
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 280 }  // stock + grey  
-#elif ANY (BEAR, BEAR_TURBO) 
+#elif ENABLED (GREYBEAR) && ANY (BEAR, BEAR_TURBO)
+    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 280 }  // stock + grey
+#elif ANY (BEAR, BEAR_TURBO)
     #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 280 }  //stock
 #endif
 #endif
 
-#if ENABLED (NEWMODEL) 
+#if ENABLED (NEWMODEL)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }
 #endif
 
@@ -1782,13 +1782,13 @@
  *     O-- FRONT --+
  */
 #if DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
-  #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ 
+  #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ
 #elif ENABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
   #define NOZZLE_TO_PROBE_OFFSET { -40, 0, 0 }  // Nozzle To Probe offset XYZ A10M+T/A20M+T - this is what it is on my test machines yours could differ
 #elif ANY (BEAR, BEAR_TURBO) && ENABLED (TOUCHPROBE)
-  #define NOZZLE_TO_PROBE_OFFSET { 26, 10, 0 } 
+  #define NOZZLE_TO_PROBE_OFFSET { 26, 10, 0 }
 #elif ANY (BEAR, BEAR_TURBO)
-  #define NOZZLE_TO_PROBE_OFFSET { 23, 5, 0 }  
+  #define NOZZLE_TO_PROBE_OFFSET { 23, 5, 0 }
 #else
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
 #endif
@@ -1875,8 +1875,8 @@
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20 
-#define Z_PROBE_OFFSET_RANGE_MAX  20 
+#define Z_PROBE_OFFSET_RANGE_MIN -20
+#define Z_PROBE_OFFSET_RANGE_MAX  20
 
 // Enable the M48 repeatability test to test probe accuracy
 #if ANY(BLTOUCH, FIX_MOUNTED_PROBE, TOUCH_MI_PROBE, SOLENOID_PROBE, RACK_AND_PINION_PROBE, NOZZLE_AS_PROBE) && DISABLED (AT1280)
@@ -1945,11 +1945,11 @@
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR false
-#elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS) 
+#elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR false  
-#elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && DISABLED (CUSTOMDRIVERS) 
+  #define INVERT_Z_DIR false
+#elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
@@ -1972,7 +1972,7 @@
 #elif ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS) //A10 || A20 || A30 with TMC
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR true  
+  #define INVERT_Z_DIR true
 #elif ENABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR CUSTOMX
   #define INVERT_Y_DIR CUSTOMY
@@ -2040,7 +2040,7 @@
 // @section machine
 
 // Max XYZ Travel Disatnce from 0 in MM before hitting the end.
-#if ENABLED (GTM201) 
+#if ENABLED (GTM201)
   #define X_BED_SIZE 280
   #define Y_BED_SIZE 220
   #define Z_MAX_POS 160
@@ -2066,7 +2066,7 @@
   #define Z_MAX_POS 200
 #elif ENABLED (GTD200)
   #define X_BED_SIZE 300
-  #define Y_BED_SIZE 180 
+  #define Y_BED_SIZE 180
   #define Z_MAX_POS 180
 #elif ENABLED (MECREATOR2)
   #define X_BED_SIZE 155
@@ -2086,14 +2086,14 @@
   #if ENABLED (Z320)
   #define Z_MAX_POS 320
   #elif ENABLED (Z420)
-  #define Z_MAX_POS 420 
+  #define Z_MAX_POS 420
   #else
-  #define Z_MAX_POS 210  
+  #define Z_MAX_POS 210
   #endif
 #elif ENABLED (NEWMODEL) // Build area XYZ
   #define X_BED_SIZE 200
   #define Y_BED_SIZE 200
-  #define Z_MAX_POS  200 
+  #define Z_MAX_POS  200
 #endif
 
 #if  ANY (GTA10, GTA20, GTA30) && ANY(MIXT, CYCLOPST, CYCLOPST)
@@ -2104,13 +2104,13 @@
   #define Y_MIN_POS -5   //- this is what it is on my test machines yours could differ
 #elif ANY (BEAR, BEAR_TURBO)
   #define X_MIN_POS 0
-  #define Y_MIN_POS -4  
-#elif ENABLED (NEWMODEL) 
-  #define X_MIN_POS 0        
-  #define Y_MIN_POS 0  
+  #define Y_MIN_POS -4
+#elif ENABLED (NEWMODEL)
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
 #else
-  #define X_MIN_POS 0        
-  #define Y_MIN_POS 0      
+  #define X_MIN_POS 0
+  #define Y_MIN_POS 0
 #endif
 
 #define Z_MIN_POS 0
@@ -2143,7 +2143,7 @@
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS) && DISABLED (AT1280)
-  #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD 
+  #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
 #endif
 
 /**
@@ -2160,9 +2160,9 @@
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
 #if ENABLED (RUNOUT)
-  #define FILAMENT_RUNOUT_SENSOR 
+  #define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
-   
+
    #if ANY (MIXT, CYCLOPST) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
    #define NUM_RUNOUT_SENSORS   3
    #define FIL_RUNOUT_PIN      66
@@ -2255,8 +2255,8 @@
  */
 #if DISABLED (AT1280)
   #define AUTO_BED_LEVELING_UBL
-#else  
-  #define AUTO_BED_LEVELING_BILINEAR  
+#else
+  #define AUTO_BED_LEVELING_BILINEAR
 #endif
 
 #if ENABLED (AUTO_BED_LEVELING_UBL)
@@ -2361,7 +2361,7 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
   #define UBL_MESH_EDIT_MOVES_Z                 // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500               // Save the currently active mesh in the current slot on M500
-  //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.                                            
+  //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
 
 #elif ENABLED(MESH_BED_LEVELING)
 
@@ -2398,7 +2398,7 @@
   #define LEVEL_CORNERS_HEIGHT      0.0   // (mm) Z height of nozzle at leveling points
   #define LEVEL_CORNERS_Z_HOP       5.0   // (mm) Z height of nozzle between leveling points
   #define LEVEL_CENTER_TOO              // Move to the center after the last corner
-  
+
   #if ANY (FMP, PINDA, TOUCHPROBE)
     #define LEVEL_CORNERS_USE_PROBE
   #endif
