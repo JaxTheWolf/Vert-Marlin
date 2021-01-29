@@ -91,7 +91,7 @@
 //#define GTA10MPRO   // A10M Pro Variants - in development
 //#define GTA10CPRO   // A10C Pro Variants - in development
 //#define GTA10TPRO   // A10T Pro Variants - in development
-//#define GTA10CRPRO  // A10CT Pro Variants - in development
+//#define GTA10CTPRO  // A10CT Pro Variants - in development
 //#define GTA20       // A20 & Variants
 //#define GTA20M      // A20M & Variants
 //#define GTA20C      // A20C & Variants
