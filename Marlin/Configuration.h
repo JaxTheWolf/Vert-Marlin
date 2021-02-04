@@ -89,7 +89,7 @@
 //#define GTA10CT     // A10CT & Variants
 //#define GTA10PRO    // A10 Pro Variants
 //#define GTA10MPRO   // A10M Pro Variants
-#define GTA10CPRO   // A10C Pro Variants
+//#define GTA10CPRO   // A10C Pro Variants
 //#define GTA10TPRO   // A10T Pro Variants
 //#define GTA10CTPRO  // A10CT Pro Variants
 //#define GTA20       // A20 & Variants
@@ -213,7 +213,7 @@
 
 //(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
 
-#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
+//#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Type Probe (Capacitive / Inductive)
 //#define PINDA       // Enable Pinda Type Probe
 
