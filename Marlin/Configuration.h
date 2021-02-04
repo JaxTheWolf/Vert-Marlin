@@ -75,7 +75,7 @@
 #define SHORT_BUILD_VERSION "Bugfix Build 503"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------
+//START_HERE---------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------
 //(Setup) enable 1 model/frame  |
 //-------------------------------
@@ -87,11 +87,11 @@
 //#define GTA10C      // A10C & Variants
 //#define GTA10T      // A10T & Variants
 //#define GTA10CT     // A10CT & Variants
-//#define GTA10PRO    // A10 Pro Variants - in development
-//#define GTA10MPRO   // A10M Pro Variants - in development
-//#define GTA10CPRO   // A10C Pro Variants - in development
-//#define GTA10TPRO   // A10T Pro Variants - in development
-//#define GTA10CTPRO  // A10CT Pro Variants - in development
+//#define GTA10PRO    // A10 Pro Variants
+//#define GTA10MPRO   // A10M Pro Variants
+#define GTA10CPRO   // A10C Pro Variants
+//#define GTA10TPRO   // A10T Pro Variants
+//#define GTA10CTPRO  // A10CT Pro Variants
 //#define GTA20       // A20 & Variants
 //#define GTA20M      // A20M & Variants
 //#define GTA20C      // A20C & Variants
@@ -116,36 +116,26 @@
 
   #if ENABLED (GTA10PRO)
     #define GTA10
-    #define YHCB2004 // A10 Pro  Screen
-    #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10MPRO)
     #define GTA10
     #define MIX
-    #define YHCB2004 // A10 Pro  Screen
-    #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10CPRO)
     #define GTA10
     #define CYCLOPS
-    #define YHCB2004 // A10 Pro  Screen
-    #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10TPRO)
     #define GTA10
     #define MIXT
-    #define YHCB2004 // A10 Pro  Screen
-    #define ULTIPANEL
   #endif
 
  #if ENABLED (GTA10CTPRO)
     #define GTA10
     #define CYCLOPST
-    #define YHCB2004 // A10 Pro  Screen
-    #define ULTIPANEL
   #endif
 
   #if ENABLED (GTA10T)
@@ -187,37 +177,7 @@
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
 
 //#define GTA30       // A30  & Variants - no touchscreen support, for development only
-//#define GTA30M      // A30M & Variants - no touchscreen support, for development only
-//#define GTA30C      // A30C & Variants - no touchscreen support, for development only
-//#define GTA30T      // A30T & Variants - no touchscreen support, for development only
-//#define GTA30CT     // A30CT & Variants - no touchscreen support, for development only
 //#define GTE180      // E180 & Variants - no touchscreen support, for development only
-//#define GTM201      // M201 & Variants - no touchscreen support, for development only
-//#define GTD200      // D200 & Variants - no touchscreen support, for development only
-
-  #if ENABLED (GTA30M)
-    #define GTA30
-    #define MIX
-  #endif
-
-  #if ENABLED (GTA30T)
-    #define GTA30
-    #define MIXT
-  #endif
-
-  #if ENABLED (GTA30C)
-    #define GTA30
-    #define CYCLOPS
-  #endif
-
-  #if ENABLED (GTA30CT)
-    #define GTA30
-    #define CYCLOPST
-  #endif
-//----------------------------------------------------------------------------------------------------
-//Melzi Boards - vscode: default_envs = melzi in platformio.ini
-
-//#define ENDER3      // ENDER3 & Variants - testing
 
 //----------------------------------------------------------------------------------------------------
 //Based on https://github.com/codiac2600/SKR-MK3s-V1.4-Beta
@@ -253,7 +213,7 @@
 
 //(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
 
-//#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
+#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Type Probe (Capacitive / Inductive)
 //#define PINDA       // Enable Pinda Type Probe
 
@@ -265,11 +225,11 @@
 
 //(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
 
-//Either Mix or cyclops can be used on M variants
+//Either Mix or cyclops can be used on M variants do not combine with any other multi extruder options
 //#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
 //#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
 
-//Either Mix T or Cyclops T can be used on T variants
+//Either Mix T or Cyclops T can be used on T variants do not combine with any other multi extruder options
 //#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
 //#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
 
@@ -328,11 +288,6 @@
    #define INVERTE      // enabled = false / disabed = true - to change direction
 
 #endif
-
-//(LCD Mod) enable 1 (Mod) to override default LCD as defined by step 1
-
-//#define FULLGFXLCD      // Enable repreap full gfx lcd
-//#define CR10DISPLAY     // Enable cr10 style lcd
 
 //(Fan Mod) enable 1 (Mod) to override default FAN PWM
 
@@ -394,18 +349,13 @@
 #endif
 
 //32bit boards models
-#if ANY(GTA30, GTE180, GTM201, GTD200)
+#if ANY(GTA30, GTE180)
   #define STM32
 #endif
 
 //256kb boards models
 #if ANY(GTA10, GTA20, MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
   #define AT2560
-#endif
-
-//128kb or smaller boards models only if disabled
-#if ENABLED (ENDER3) && DISABLED (CUSTOMBOARD)
-  #define AT1280
 #endif
 
 //Bed clip logic - use mesh inset or min probe edge to avoid clips not both
@@ -439,8 +389,10 @@
   //#define INVERTXYZ // Enable to force on
 #endif
 
+//END_START_HERE-----------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 /**
  * *** VENDORS PLEASE READ ***
@@ -475,7 +427,7 @@
 #if ENABLED (STM32)
   #define SERIAL_PORT 1
   //#define SERIAL_PORT_2 2
-#elif ANY(AT2560, AT1280)
+#elif ENABLED (AT2560)
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 3
 #elif ENABLED (NEWMODEL)
@@ -523,14 +475,10 @@
   #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
 #elif ENABLED (MECREATOR2)
   #define MOTHERBOARD BOARD_GT2560_V3_MC2
-#elif ANY (GTA30, GTD200)
+#elif ENABLED (GTA30)
   #define MOTHERBOARD BOARD_GTM32_MINI_A30
 #elif ENABLED (GTE180)
   #define MOTHERBOARD BOARD_GTM32_MINI
-#elif ENABLED (GTM201)
-  #define MOTHERBOARD BOARD_GTM32_REV_B
-#elif ENABLED (ENDER3)
-  #define MOTHERBOARD BOARD_MELZI_CREALITY
 #elif ENABLED (BEAR)
   #define MOTHERBOARD BOARD_BTT_SKR_V1_4
 #elif ENABLED (BEAR_TURBO)
@@ -910,10 +858,8 @@
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-  #if DISABLED (AT1280)
   #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
   #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  #endif
   //#define PID_DEBUG             // Sends debug data to the serial port.
   //#define PID_OPENLOOP 1        // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
@@ -925,7 +871,7 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   //FIND YOUR OWN: "M303 U1 E0 S250 C8" HOTEND PID
-  #if ANY(ENDER3, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
+  #if ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
     #define  DEFAULT_Kp 22.2
     #define  DEFAULT_Ki 1.08
     #define  DEFAULT_Kd 114
@@ -997,7 +943,7 @@
 #if ENABLED(PIDTEMPBED)
   //#define MIN_BED_POWER 0
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
-  #if ANY(I3PROW, I3PROA, I3PROC, I3PROX, GTM201, ENDER3)
+  #if ANY(I3PROW, I3PROA, I3PROC, I3PROX, GTM201)
     #define  DEFAULT_bedKp 10.00
     #define  DEFAULT_bedKi .023
     #define  DEFAULT_bedKd 305.4
@@ -1009,7 +955,7 @@
     #define  DEFAULT_bedKp 129.40
     #define  DEFAULT_bedKi 25.07
     #define  DEFAULT_bedKd 166.96
-  #elif ANY (GTA30, GTD200)
+  #elif ENABLED (GTA30)
     #define  DEFAULT_bedKp 369.610
     #define  DEFAULT_bedKi 54.132
     #define  DEFAULT_bedKd 602.870
@@ -1151,7 +1097,7 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#if ANY(ENDER3, GTM201, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX, BEAR, BEAR_TURBO)
+#if ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX, BEAR, BEAR_TURBO)
   #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
@@ -1168,7 +1114,7 @@
   #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
 #elif ENABLED (NEWMODEL) //Endstop inverting
-#define X_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
+  #define X_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
   #define X_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
@@ -1462,7 +1408,7 @@
 #endif
 
 // Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
+#define DETECT_BROKEN_ENDSTOP
 
 //=============================================================================
 //============================== Movement Settings ============================
@@ -1795,9 +1741,8 @@
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#if ENABLED (AUTO_BED_LEVELING_BILINEAR)
-  #define PROBING_MARGIN 10 //suggested only using mesh inset or probing margin to adjust probe area
-#endif
+//#define PROBING_MARGIN 10 //suggested only using mesh inset or probing margin to adjust probe area
+
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 10*60
@@ -1879,7 +1824,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX  20
 
 // Enable the M48 repeatability test to test probe accuracy
-#if ANY(BLTOUCH, FIX_MOUNTED_PROBE, TOUCH_MI_PROBE, SOLENOID_PROBE, RACK_AND_PINION_PROBE, NOZZLE_AS_PROBE) && DISABLED (AT1280)
+#if HAS_BED_PROBE || ENABLED (BLTOUCH)
   #define Z_MIN_PROBE_REPEATABILITY_TEST
 #endif
 
@@ -2031,7 +1976,7 @@
   #define X_HOME_DIR -1
   #define Y_HOME_DIR -1
   #define Z_HOME_DIR -1
-#else //A10 & A20 & A30 Ender3
+#else //A10 & A20 & A30
   #define X_HOME_DIR -1
   #define Y_HOME_DIR -1
   #define Z_HOME_DIR -1
@@ -2064,10 +2009,6 @@
   #define X_BED_SIZE 220
   #define Y_BED_SIZE 220
   #define Z_MAX_POS 200
-#elif ENABLED (GTD200)
-  #define X_BED_SIZE 300
-  #define Y_BED_SIZE 180
-  #define Z_MAX_POS 180
 #elif ENABLED (MECREATOR2)
   #define X_BED_SIZE 155
   #define Y_BED_SIZE 165
@@ -2075,10 +2016,6 @@
 #elif ENABLED (GTA10)
   #define X_BED_SIZE 230
   #define Y_BED_SIZE 230
-  #define Z_MAX_POS 250
-#elif ENABLED (ENDER3)
-  #define X_BED_SIZE 235
-  #define Y_BED_SIZE 235
   #define Z_MAX_POS 250
 #elif ANY (BEAR, BEAR_TURBO)
   #define X_BED_SIZE 255
@@ -2142,7 +2079,7 @@
   #define MAX_SOFTWARE_ENDSTOP_Z
 #endif
 
-#if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS) && DISABLED (AT1280)
+#if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
   #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
 #endif
 
@@ -2222,7 +2159,7 @@
   // After a runout is detected, continue printing this length of filament
   // before executing the runout script. Useful for a sensor at the end of
   // a feed tube. Requires 4 bytes SRAM per sensor, plus 4 bytes overhead.
-  #define FILAMENT_RUNOUT_DISTANCE_MM 2
+  //#define FILAMENT_RUNOUT_DISTANCE_MM 2
 
   #ifdef FILAMENT_RUNOUT_DISTANCE_MM
     // Enable this option to use an encoder disc that toggles the runout pin
@@ -2243,27 +2180,14 @@
  *
  *  If using a Probe for Z Homing, enable Z_SAFE_HOMING also!
  *
- * - AUTO_BED_LEVELING_BILINEAR
- *   Probe several points in a grid.
- *   You specify the rectangle and the density of sample points.
- *   The result is a mesh, best for large or uneven beds.
- *
  * - AUTO_BED_LEVELING_UBL (Unified Bed Leveling)
  *   A comprehensive bed leveling system combining the features and benefits
  *   of other systems. UBL also includes integrated Mesh Generation, Mesh
  *   Validation and Mesh Editing systems.
  */
-#if DISABLED (AT1280)
-  #define AUTO_BED_LEVELING_UBL
-#else
-  #define AUTO_BED_LEVELING_BILINEAR
-#endif
+#define AUTO_BED_LEVELING_UBL
 
-#if ENABLED (AUTO_BED_LEVELING_UBL)
-  #define GRIDSIZE 5   // Mesh grid size adjust as needed
-#elif ENABLED (AUTO_BED_LEVELING_BILINEAR)
-  #define GRIDSIZE 3   // Mesh grid size adjust as needed
-#endif
+#define GRIDSIZE 5   // Mesh grid size adjust as needed
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -2321,35 +2245,6 @@
 #endif
 #endif
 
-#if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
-
-  // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X GRIDSIZE
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
-
-  // Probe along the Y axis, advancing X after each column
-  #define PROBE_Y_FIRST
-
-  #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
-
-    // Beyond the probed grid, continue the implied tilt?
-    // Default is to maintain the height of the nearest edge.
-    #define EXTRAPOLATE_BEYOND_GRID
-
-    //
-    // Experimental Subdivision of the grid by Catmull-Rom method.
-    // Synthesizes intermediate points to produce a more detailed mesh.
-    //
-    //#define ABL_BILINEAR_SUBDIVISION
-    #if ENABLED(ABL_BILINEAR_SUBDIVISION)
-      // Number of subdivisions between probe points
-      #define BILINEAR_SUBDIVISIONS 3
-    #endif
-
-  #endif
-
-#elif ENABLED(AUTO_BED_LEVELING_UBL)
-
   //===========================================================================
   //========================= Unified Bed Leveling ============================
   //===========================================================================
@@ -2362,33 +2257,6 @@
   #define UBL_MESH_EDIT_MOVES_Z                 // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500               // Save the currently active mesh in the current slot on M500
   //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
-
-#elif ENABLED(MESH_BED_LEVELING)
-
-  //===========================================================================
-  //=================================== Mesh ==================================
-  //===========================================================================
-
-  //#define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
-  #define GRID_MAX_POINTS_X GRIDSIZE  // Don't use more than 7 points per axis, implementation limited.
-  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
-
-  #define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
-
-#endif // BED_LEVELING
-
-/**
- * Add a bed leveling sub-menu for ABL or MBL.
- * Include a guided procedure if manual probing is enabled.
- */
-#if DISABLED (AUTO_BED_LEVELING_UBL) && DISABLED (AT1280)
-  #define LCD_BED_LEVELING
-#if ENABLED(LCD_BED_LEVELING)
-  #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
-  #define LCD_PROBE_Z_RANGE 1     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  #define MESH_EDIT_MENU          // Add a menu to edit mesh points
-#endif
-#endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
 #if DISABLED (BEAR) && DISABLED (BEAR_TURBO)
@@ -2626,8 +2494,7 @@
  *   Caveats: The ending Z should be the same as starting Z.
  * Attention: EXPERIMENTAL. G-code arguments may change.
  */
-#if DISABLED (AT1280)
-  #define NOZZLE_CLEAN_FEATURE
+#define NOZZLE_CLEAN_FEATURE
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
   #define NOZZLE_CLEAN_STROKES  5
@@ -2663,7 +2530,6 @@
   // Explicit wipe G-code script applies to a G12 with no arguments.
   //#define WIPE_SEQUENCE_COMMANDS "G1 X-17 Y25 Z10 F4000\nG1 Z1\nM114\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 X-17 Y25\nG1 X-17 Y95\nG1 Z15\nM400\nG0 X-10.0 Y-9.0"
 
-#endif
 #endif
 
 /**
@@ -2807,9 +2673,7 @@
  * just remove some extraneous menu items to recover space.
  */
 //#define NO_LCD_MENUS
-#if ENABLED (AT1280)
-  #define SLIM_LCD_MENUS   //removes most advanced configuration menus
-#endif
+//#define SLIM_LCD_MENUS   //removes most advanced configuration menus
 
 //
 // ENCODER SETTINGS
@@ -2863,9 +2727,7 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-#if DISABLED (AT1280)
-  #define INDIVIDUAL_AXIS_HOMING_MENU
-#endif
+#define INDIVIDUAL_AXIS_HOMING_MENU
 
 //
 // SPEAKER/BUZZER
@@ -3047,8 +2909,8 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#if DISABLED (NOSCREEN) && DISABLED (GTA10PRO)
-  #if ANY (GTA20, FULLGFXLCD)
+#if DISABLED (NOSCREEN)
+  #if ENABLED (GTA20)
     #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
     #define ST7920_DELAY_1 DELAY_NS(200)
     #define ST7920_DELAY_2 DELAY_NS(200)
@@ -3057,8 +2919,9 @@
   //#define REPRAP_DISCOUNT_SMART_CONTROLLER
   //#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
   //#define ULTIPANEL
- #elif ANY (ENDER3, CR10DISPLAY)
-   #define CR10_STOCKDISPLAY
+ #elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
+   #define YHCB2004
+   #define ULTIPANEL
  #else //A10 - I3pro
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #endif

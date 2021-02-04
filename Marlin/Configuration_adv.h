@@ -339,7 +339,6 @@
 
 // The number of consecutive low temperature errors that can occur
 // before a min_temp_error is triggered. (Shouldn't be more than 10.)
-#if DISABLED (AT1280)
   #define MAX_CONSECUTIVE_LOW_TEMPERATURE_ERROR_ALLOWED 10
 
 // The number of milliseconds a hotend will preheat before starting to check
@@ -348,7 +347,6 @@
 // the minimum temperature your thermistor can read. The lower the better/safer.
 // This shouldn't need to be more than 30 seconds (30000)
   #define MILLISECONDS_PREHEAT_TIME 30000
-#endif
 
 // @section extruder
 
@@ -367,14 +365,12 @@
  * Hotend Idle Timeout
  * Prevent filament in the nozzle from charring and causing a critical jam.
  */
-#if DISABLED (AT1280)
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
   #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER   150     // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
-#endif
 #endif
 
 // @section temperature
@@ -680,14 +676,7 @@
 //#define HOMING_BACKOFF_POST_MM { X_MIN_POS, Y_MIN_POS, (Z_MIN_POS + 1)}  // (mm) Move away from the endstops after homing
 #endif
 
-// When G28 is called, this option will make Y home before X
-//#define HOME_Y_BEFORE_X
-
-// Enable this if X or Y can't home without homing the other axis first.
-//#define CODEPENDENT_XY_HOMING
-
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
-
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
@@ -830,7 +819,7 @@
 //
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
 //
-#if DISABLED (AT1280) && HAS_BED_PROBE || ENABLED (BLTOUCH)
+#if HAS_BED_PROBE || ENABLED (BLTOUCH)
   #define ASSISTED_TRAMMING
 #endif
 
@@ -846,9 +835,9 @@
   #define TRAMMING_POINT_NAME_4 "Back-Left"
 
   #define RESTORE_LEVELING_AFTER_G35    // Enable to restore leveling setup after operation
-  //#define REPORT_TRAMMING_MM          // Report Z deviation (mm) for each point relative to the first
+  #define REPORT_TRAMMING_MM          // Report Z deviation (mm) for each point relative to the first
 
-  //#define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
+  #define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
 
   //#define ASSISTED_TRAMMING_WAIT_POSITION { X_CENTER, Y_CENTER, 30 } // Move the nozzle out of the way for adjustment
 
@@ -1117,8 +1106,8 @@
 
 #if HAS_LCD_MENU
 
-  // Include a page of printer information in the LCD Main Menu 
-#if DISABLED (AT1280) && HAS_BED_PROBE || ENABLED (BLTOUCH) 
+  // Include a page of printer information in the LCD Main Menu
+#if HAS_BED_PROBE || ENABLED (BLTOUCH)
   #define LCD_INFO_MENU
   // Add Probe Z Offset calibration to the Z Probe Offsets menu
     #define PROBE_OFFSET_WIZARD
@@ -1128,10 +1117,10 @@
       // Use a height slightly above the estimated nozzle-to-probe Z offset.
       // For example, with an offset of -5, consider a starting height of -4.
       //
-      //#define PROBE_OFFSET_WIZARD_START_Z -4.0
+      #define PROBE_OFFSET_WIZARD_START_Z -5.0
 
       // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
-      //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
+      #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
     #endif
 #endif
 
@@ -1226,7 +1215,7 @@
   //#define SD_DETECT_STATE HIGH
 
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
-  
+
   #if DISABLED (PLR)
     #define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
   #endif
@@ -1471,7 +1460,7 @@
   #if ENABLED (GREAYBEAR)
   #define OVERLAY_GFX_REVERSE
   #endif
-  
+
   /**
    * ST7920-based LCDs can emulate a 16 x 4 character display using
    * the ST7920 character-generator for very fast screen updates.
@@ -1897,9 +1886,7 @@
 //
 // G60/G61 Position Save and Return
 //
-#if DISABLED (AT1280)
-  #define SAVED_POSITIONS 2         // Each saved position slot costs 12 bytes
-#endif
+#define SAVED_POSITIONS 2         // Each saved position slot costs 12 bytes
 
 //
 // G2/G3 Arc Support
@@ -2184,8 +2171,7 @@
  * Requires NOZZLE_PARK_FEATURE.
  * This feature is required for the default FILAMENT_RUNOUT_SCRIPT.
  */
-#if DISABLED (AT1280)
-  #define ADVANCED_PAUSE_FEATURE
+#define ADVANCED_PAUSE_FEATURE
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         10  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            2  // (mm) Initial retract.
@@ -2208,11 +2194,11 @@
   #define FILAMENT_CHANGE_FAST_LOAD_ACCEL      5  // (mm/s^2) Lower acceleration may allow a faster feedrate.
 
   #if ENABLED (DIRECTDRIVE)
-    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    20 
+    #define FILAMENT_CHANGE_FAST_LOAD_LENGTH    20
   #else
   #define FILAMENT_CHANGE_FAST_LOAD_LENGTH   200  // (mm) Load length of filament, from extruder gear to nozzle.
   #endif                                                //   For Bowden, the full length of the tube and nozzle.
-  
+
                                                   //   For direct drive, the full length of the nozzle.
   //#define ADVANCED_PAUSE_CONTINUOUS_PURGE       // Purge continuously up to the purge length until interrupted.
   #define ADVANCED_PAUSE_PURGE_FEEDRATE       10  // (mm/s) Extrude feedrate (after loading). Should be slower than load feedrate.
@@ -2243,7 +2229,6 @@
 
   #define FILAMENT_LOAD_UNLOAD_GCODES           // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
   //#define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
-#endif
 #endif
 
 // @section tmc
@@ -2388,7 +2373,7 @@
     #else
     #define X_CURRENT       500        // (mA) RMS current. Multiply by 1.414 for peak current.
     #endif
-    
+
     #if ENABLED (BEAR_TURBO)
     #define X_CURRENT_HOME  250  // (mA) RMS current for sensorless homing
     #else
@@ -2639,7 +2624,7 @@
     #define CHOPPER_TIMING CHOPPER_DEFAULT_12V // All axes (override below)
   #elif ANY (AT2560, BEAR, BEAR_TURBO)
     #define CHOPPER_TIMING CHOPPER_DEFAULT_24V // All axes (override below)
-  #else 
+  #else
     #define CHOPPER_TIMING CHOPPER_DEFAULT_12V // All axes (override below)
   #endif
   //#define CHOPPER_TIMING_X  CHOPPER_DEFAULT_12V   // For X Axes (override below)
@@ -2747,7 +2732,7 @@
     #else
     #define X_STALL_SENSITIVITY  100
     #endif
-    
+
     #define X2_STALL_SENSITIVITY X_STALL_SENSITIVITY
     #if ENABLED (BEAR_TURBO)
     #define Y_STALL_SENSITIVITY  100
@@ -2756,7 +2741,7 @@
     #else
     #define Y_STALL_SENSITIVITY  90
     #endif
-    
+
     //#define Z_STALL_SENSITIVITY  8
     //#define SPI_ENDSTOPS              // TMC2130 only
     #define IMPROVE_HOMING_RELIABILITY
@@ -3432,20 +3417,18 @@
  * User-defined menu items to run custom G-code.
  * Up to 25 may be defined, but the actual number is LCD-dependent.
  */
-#if DISABLED (AT1280)
-  #define CUSTOM_USER_MENUS
-#endif
+#define CUSTOM_USER_MENUS
 #if ENABLED(CUSTOM_USER_MENUS)
   #define CUSTOM_USER_MENU_TITLE "Tools"
   //#define USER_SCRIPT_DONE "M117 Running"
   //#define USER_SCRIPT_AUDIBLE_FEEDBACK
   #define USER_SCRIPT_RETURN  // Return to status screen after a script
 
-#if ANY (BEAR, BEAR_TURBO) 
+#if ANY (BEAR, BEAR_TURBO)
   #define USER_DESC_1 "Nozzle Change"
   #define USER_GCODE_1 "M104 S275\nM117 Setting Nozzle to 275C\nG4 s3\nM0 Click to continue"
 
-  #define USER_DESC_2 "Full Calibration" 
+  #define USER_DESC_2 "Full Calibration"
   #define USER_GCODE_2 "M140 S60\nM190 S60\nG28\nG34\nG29\nM500\nM140 S0\nG28"
 
   #define USER_DESC_3 "PLA Z Calibration"
@@ -3530,14 +3513,14 @@
 
   #define USER_DESC_14 "Auto Cold Pull"
   #define USER_GCODE_14 "G28\nM83\nG92 E0.00\nG21\nG1 X125 Y105 Z30\nM109 S250\nG1 E10.00 F6.5\nM109 S95\nM18 E\nM0 Pull your filament out\nM106 S0\nM109 S0"
- 
+
   #define USER_DESC_15 "Nozzle Change"
   #define USER_GCODE_15 "M104 S275\nM117 Setting Nozzle to 275C\nG4 s3\nM0 Click to continue"
 
   #define USER_DESC_16 "Reset EEPROM"
   #define USER_GCODE_16 "M502\nM500\nM500\nM117 EEPROM values restored\nG4 S3\nM0 Click to continue"
 
-  #else 
+  #else
 
   #define USER_DESC_1 "Probe UBL Slot 0" //Use probe to setup UBL.
   #define USER_GCODE_1 "G28\nM190 S65\nG29 P1\nG29 P3\nG29 S0\nG29 A\nG29 F 10.0\nM500\nM140 S0\nM0 Mesh Saved in Slot 0"
@@ -3562,7 +3545,7 @@
 
   #define USER_DESC_8 "Mesh Tilt" //Tilt mesh to account for changes of knobs under the bed
   #define USER_GCODE_8 "G29 J2\nM500"
-  
+
   #define USER_DESC_9 "PIDtune Hotend"
   #define USER_GCODE_9 "M303 U1 E0 S250 C8\nM500"
 
@@ -3589,7 +3572,7 @@
 
   #define USER_DESC_17 "Dwell 30S"
   #define USER_GCODE_17 "G4 S30"
-  
+
   #define USER_DESC_18 "Zero Z Offset"
   #define USER_GCODE_18 "M851 Z0.00\nM500\nM117 Z Probe Offset Zeroed\nG4 S3\nM0 Click to continue"
 
@@ -3598,7 +3581,7 @@
 
   #define USER_DESC_20 "Nozzle Change"
   #define USER_GCODE_20 "M104 S275\nM117 Setting Nozzle to 275C\nG4 s3\nM0 Click to continue"
-  
+
   #define USER_DESC_21 "Reset EEPROM"
   #define USER_GCODE_21 "M502\nM500\nM500\nM117 EEPROM values restored\nG4 S3\nM0 Click to continue"
 
@@ -3632,9 +3615,7 @@
  *
  * Implement M486 to allow Marlin to skip objects
  */
-#if DISABLED (AT1280)
-  #define CANCEL_OBJECTS
-#endif
+#define CANCEL_OBJECTS
 
 /**
  * I2C position encoders for closed loop control.
