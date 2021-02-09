@@ -147,14 +147,6 @@
 //#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
 //#define PINDA       // Enable Pinda Probe
 
-//(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
-
-//#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
-//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
-//#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
-//#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
-//#define DUALEX   // 2 Extruders       2 in 2 - 2 Physical Extruder & 2 Nozzles
-
 //(Driver Mods) enable 1 (MOD) driver type or none for (Stock/A4988)
 
 //#define A5984      // Enable A5984   all drivers
@@ -212,12 +204,7 @@
 //Optional settings & features | Note 1kb of ram required for stability.
 //------------------------------
 
-//#define PLR              // Enabled power loss resume - Only functions from SDcard
-//#define ACTIONCOMMANDS   // Enable ACTION COMMANDS for use with octoprint
-
-//#define RUNOUT           // Enable filament runout sensor - Only If you have this hardware
 //#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardware
-//#define CASELIGHT        // Enable case light menu if board has led header. - Only If you have this hardware
 
 //Used to switch the default board of the model selected
 
@@ -232,12 +219,12 @@
 #if ENABLED (BEDCLIPS)
   #define MESH_INSET 10   // Move mesh in #mm from edge
   //Set per side
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+  //#define MESH_MIN_X MESH_INSET // left
+  //#define MESH_MIN_Y MESH_INSET // back
+  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET) // right
+  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET) // front
 #else
-  #define MESH_INSET 0    // Move mesh in #mm from edge
+  #define MESH_INSET 0
 #endif
 
 //Motor direction logic - Not used if CUSTOMDRIVERS enabled
@@ -286,6 +273,13 @@
 #if ANY(GTA10, GTA20, MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
   #define AT2560
 #endif
+
+//(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
+//#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
+//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
+//#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
+//#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
+//#define DUALEX   // 2 Extruders       2 in 2 - 2 Physical Extruder & 2 Nozzles
 
 #if ENABLED (GTA10D)
     #define GTA10
@@ -359,7 +353,6 @@
 //END_START_HERE-----------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 /**
  * *** VENDORS PLEASE READ ***
@@ -453,7 +446,7 @@
 #elif ENABLED (NEWMODEL) //Replace NEW MODEL with real name
   #define MOTHERBOARD BOARD_RAMPS_14_EFB   // define new models mainboard
 #else
-  #error No model/frame selected in setup.
+  #error No model selected in setup.
  #endif
 #endif
 
@@ -1769,12 +1762,13 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  5
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX  20
+#define Z_PROBE_OFFSET_RANGE_MIN -5
+#define Z_PROBE_OFFSET_RANGE_MAX  5
 
 // Enable the M48 repeatability test to test probe accuracy
 #if HAS_BED_PROBE || ENABLED (BLTOUCH)
@@ -2047,8 +2041,7 @@
  * RAMPS-based boards use SERVO3_PIN for the first runout sensor.
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  */
-#if ENABLED (RUNOUT)
-  #define FILAMENT_RUNOUT_SENSOR
+#define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
 
    #if ANY (MIXT, CYCLOPST) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
@@ -2066,7 +2059,7 @@
    #endif
    #endif
 
-   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
+   #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
    #define FIL_RUNOUT_STATE  HIGH     // set to high to invert the logic of the sensors. some geeetech filament sensors are inverted if trigger with filament loaded invert.
    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
 
@@ -2118,7 +2111,6 @@
     // large enough to avoid false positives.)
     //#define FILAMENT_MOTION_SENSOR
   #endif
-#endif
 
 //===========================================================================
 //=============================== Bed Leveling ==============================
