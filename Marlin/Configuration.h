@@ -77,7 +77,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
 //START_HERE---------------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------
-//(Setup) enable 1 model/frame  |
+//(Setup) enable 1 model/frame  | Note: Marlin no longer compiles with arduino ide.
 //-------------------------------
 //GT2560 Boards - vscode: default_envs = mega2560 in platformio.ini
 
@@ -238,11 +238,6 @@
   //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
 #else
   #define MESH_INSET 0    // Move mesh in #mm from edge
-  //Set per side
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
 #endif
 
 //Motor direction logic - Not used if CUSTOMDRIVERS enabled
