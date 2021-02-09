@@ -1467,7 +1467,7 @@
  */
 #define DEFAULT_ACCELERATION          500       // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  500       // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   500       // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   1000       // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
@@ -1919,7 +1919,7 @@
 #define Z_HOMING_HEIGHT  5      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-#define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z
+//#define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z
 
 // Direction of endstops when homing; 1=MAX, -1=MIN
 // :[-1,1]
@@ -2213,7 +2213,7 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
   #define UBL_MESH_EDIT_MOVES_Z                 // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500               // Save the currently active mesh in the current slot on M500
-  //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
+  #define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
 
 // Add a menu item to move between bed corners for manual bed adjustment
 #if DISABLED (BEAR) && DISABLED (BEAR_TURBO)
