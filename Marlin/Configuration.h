@@ -1717,7 +1717,7 @@
 
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 10*60
+#define XY_PROBE_SPEED 20*60
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST Z_PROBE_SPEED_SLOW
@@ -2295,7 +2295,7 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_MM_M { (10*60), (10*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (4*60) }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -2415,7 +2415,7 @@
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
   #define NOZZLE_PARK_POINT { X_MIN_POS, Y_BED_SIZE , 20 }
-  #define NOZZLE_PARK_XY_FEEDRATE (10*60)    // (mm/s) X and Y axes feedrate (also used for delta Z axis)
+  #define NOZZLE_PARK_XY_FEEDRATE (20*60)    // (mm/s) X and Y axes feedrate (also used for delta Z axis)
   #define NOZZLE_PARK_Z_FEEDRATE  (4*60)     // (mm/s) Z axis feedrate (not used for delta printers)
 #endif
 
@@ -2456,7 +2456,7 @@
  *   Caveats: The ending Z should be the same as starting Z.
  * Attention: EXPERIMENTAL. G-code arguments may change.
  */
-#define NOZZLE_CLEAN_FEATURE
+//#define NOZZLE_CLEAN_FEATURE
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
   // Default number of pattern repetitions
   #define NOZZLE_CLEAN_STROKES  5
