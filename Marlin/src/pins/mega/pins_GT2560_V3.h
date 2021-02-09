@@ -30,7 +30,7 @@
 #endif
 
 #ifndef BOARD_INFO_NAME
-  #define BOARD_INFO_NAME "GT2560 V3"
+  #define BOARD_INFO_NAME "GT2560 RevB/V3-V4.1"
 #endif
 
 //
