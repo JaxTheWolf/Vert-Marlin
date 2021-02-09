@@ -141,12 +141,11 @@
 //---------------
 //Hardware Mods | Assuming you have not installed any additional mods you can skip everything in this section.
 //---------------
-
 //(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
 
-//#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
-//#define FMP         // Enable Fixed Mounted Type Probe (Capacitive / Inductive)
-//#define PINDA       // Enable Pinda Type Probe
+//#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
+//#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
+//#define PINDA       // Enable Pinda Probe
 
 //(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
 
@@ -215,6 +214,7 @@
 
 //#define PLR              // Enabled power loss resume - Only functions from SDcard
 //#define ACTIONCOMMANDS   // Enable ACTION COMMANDS for use with octoprint
+
 //#define RUNOUT           // Enable filament runout sensor - Only If you have this hardware
 //#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardware
 //#define CASELIGHT        // Enable case light menu if board has led header. - Only If you have this hardware
@@ -1706,11 +1706,6 @@
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
 #endif
 
-// Most probes should stay away from the edges of the bed, but
-// with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-//#define PROBING_MARGIN 10 //suggested only using mesh inset or probing margin to adjust probe area
-
-
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 20*60
 
@@ -1774,9 +1769,6 @@
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE    5 // Z Clearance for Deploy/Stow
-//#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
-//#define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
-//#define Z_AFTER_PROBING             5 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
@@ -2213,7 +2205,7 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
   #define UBL_MESH_EDIT_MOVES_Z                 // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500               // Save the currently active mesh in the current slot on M500
-  #define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
+  //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
 
 // Add a menu item to move between bed corners for manual bed adjustment
 #if DISABLED (BEAR) && DISABLED (BEAR_TURBO)
