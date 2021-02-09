@@ -241,14 +241,12 @@
 #if ENABLED(PIDTEMP)
   // Add an experimental additional term to the heater power, proportional to the extrusion speed.
   // A well-chosen Kc value should add just enough power to melt the increased material volume.
-  #if ENABLED (EXTRUSIONSCALING)
-    #define PID_EXTRUSION_SCALING
+  //#define PID_EXTRUSION_SCALING
   #if ENABLED(PID_EXTRUSION_SCALING)
     #define DEFAULT_Kc (100) //heating power=Kc*(e_speed)
     #define LPQ_MAX_LEN 50
   #endif
   #endif
-#endif
 
   /**
    * Add an experimental additional term to the heater power, proportional to the fan speed.
@@ -278,8 +276,7 @@
    * 5. Enable PID_FAN_SCALING_ALTERNATIVE_DEFINITION and enter the two identified Kf-values in
    *    PID_FAN_SCALING_AT_FULL_SPEED and PID_FAN_SCALING_AT_MIN_SPEED. Enter the minimum speed in PID_FAN_SCALING_MIN_SPEED
    */
-  #if ENABLED (FANSCALING)
-    #define PID_FAN_SCALING
+  //#define PID_FAN_SCALING
   #if ENABLED(PID_FAN_SCALING)
     #define PID_FAN_SCALING_ALTERNATIVE_DEFINITION
     #if ENABLED(PID_FAN_SCALING_ALTERNATIVE_DEFINITION)
@@ -300,7 +297,6 @@
       #define PID_FAN_SCALING_MIN_SPEED 10               // Minimum fan speed at which to enable PID_FAN_SCALING
     #endif
   #endif
- #endif
 
 /**
  * Automatic Temperature:
@@ -339,14 +335,14 @@
 
 // The number of consecutive low temperature errors that can occur
 // before a min_temp_error is triggered. (Shouldn't be more than 10.)
-  #define MAX_CONSECUTIVE_LOW_TEMPERATURE_ERROR_ALLOWED 10
+//#define MAX_CONSECUTIVE_LOW_TEMPERATURE_ERROR_ALLOWED 10
 
 // The number of milliseconds a hotend will preheat before starting to check
 // the temperature. This value should NOT be set to the time it takes the
 // hot end to reach the target temperature, but the time it takes to reach
 // the minimum temperature your thermistor can read. The lower the better/safer.
 // This shouldn't need to be more than 30 seconds (30000)
-  #define MILLISECONDS_PREHEAT_TIME 30000
+//#define MILLISECONDS_PREHEAT_TIME 30000
 
 // @section extruder
 
@@ -1154,7 +1150,7 @@
 #define STATUS_MESSAGE_SCROLLING
 
   #if ENABLED(SHOW_BOOTSCREEN)
-    #define BOOTSCREEN_TIMEOUT 4000      // (ms) Total Duration to display the boot screen(s)
+    #define BOOTSCREEN_TIMEOUT 6000      // (ms) Total Duration to display the boot screen(s)
     #if EITHER(HAS_MARLINUI_U8GLIB, TFT_COLOR_UI)
       #define BOOT_MARLIN_LOGO_SMALL     // Show a smaller Marlin logo on the Boot Screen (saving lots of flash)
     #endif
@@ -1166,10 +1162,8 @@
 #endif
 
 // Add an 'M73' G-code to set the current percentage
-#if ENABLED (PROGRESSINFO)
-  #if HAS_CHARACTER_LCD || HAS_GRAPHICAL_LCD
-    #define LCD_SET_PROGRESS_MANUALLY
-  #endif
+#if HAS_CHARACTER_LCD || HAS_GRAPHICAL_LCD
+    //#define LCD_SET_PROGRESS_MANUALLY
 #endif
 
 // Show the E position (filament used) during printing
@@ -1216,7 +1210,7 @@
 
   //#define SD_IGNORE_AT_STARTUP            // Don't mount the SD card when starting up
 
-  #if DISABLED (PLR)
+  #if DISABLED (PLR) && DISABLED (ACTIONCOMMANDS)
     #define SDCARD_READONLY                 // Read-only SD card (to save over 2K of flash)
   #endif
 
@@ -1740,14 +1734,12 @@
  * See http://marlinfw.org/docs/features/lin_advance.html for full instructions.
  * Mention @Sebastianv650 on GitHub to alert the author of any issues.
  */
-#if ENABLED (LINADV)
-  #define LIN_ADVANCE
+//#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K   // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0       // Unit: mm compression per 1mm/s extruder speed
   //#define LA_DEBUG            // If enabled, this will generate debug information output over USB.
    //#define EXPERIMENTAL_SCURVE // Enable this option to permit S-Curve Acceleration
-#endif
 #endif
 
 // @section leveling
@@ -1800,7 +1792,7 @@
 #endif
 
 #if BOTH(AUTO_BED_LEVELING_UBL, EEPROM_SETTINGS)
-  //#define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
+  #define OPTIMIZED_MESH_STORAGE  // Store mesh with less precision to save EEPROM space
 #endif
 
 /**
@@ -3615,7 +3607,7 @@
  *
  * Implement M486 to allow Marlin to skip objects
  */
-#define CANCEL_OBJECTS
+//#define CANCEL_OBJECTS
 
 /**
  * I2C position encoders for closed loop control.

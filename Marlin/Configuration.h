@@ -104,7 +104,195 @@
 //#define I3PROW      // I3PROW & Variants
 //#define I3PROX      // I3PROX & Variants
 
-  #if ENABLED (GTA10D)
+//----------------------------------------------------------------------------------------------------
+//GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
+
+//#define GTA30       // A30  & Variants - no touchscreen support, for development only
+//#define GTE180      // E180 & Variants - no touchscreen support, for development only
+
+//----------------------------------------------------------------------------------------------------
+//Based on https://github.com/codiac2600/SKR-MK3s-V1.4-Beta
+//SKR 1.4 Boards - vscode: default_envs = #default_envs = LPC1768
+
+//#define BEAR        // Bear MK3/MK3s & Variants - tesing
+
+//vscode: default_envs = #default_envs = LPC1769
+
+//#define BEAR_TURBO  // Bear MK3/MK3s Turbo & Variants - testing
+
+//(Bear & Bear_Turbo)Switch from Bear MK3 to MK2.5
+
+//#define MK25        // Enable to set 12V for Bear MK2.5
+
+//(Bear & Bear_Turbo)Z mod pick only 1 or none for stock
+
+//#define Z320        // Enable to change Zmax to 320
+//#define Z420        // Enable to change Zmax to 420
+
+//(Bear & Bear_Turbo)Extruder mod pick only 1 or none for stock
+
+//#define BMG18       // BMG E 1.8 stepper
+//#define BMG9        // BMG E 0.9 stepper
+
+//(Bear & Bear_Turbo)XY mod pick only 1 or none for stock
+
+//#define GREYBEAR    // XY 0.9 stepper
+
+//---------------
+//Hardware Mods | Assuming you have not installed any additional mods you can skip everything in this section.
+//---------------
+
+//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
+
+//#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
+//#define FMP         // Enable Fixed Mounted Type Probe (Capacitive / Inductive)
+//#define PINDA       // Enable Pinda Type Probe
+
+//(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
+
+//#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
+//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
+//#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
+//#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
+//#define DUALEX   // 2 Extruders       2 in 2 - 2 Physical Extruder & 2 Nozzles
+
+//(Driver Mods) enable 1 (MOD) driver type or none for (Stock/A4988)
+
+//#define A5984      // Enable A5984   all drivers
+//#define DRV8825    // Enable DRV8825 all drivers
+//#define LV8729     // Enable LV8729  all drivers
+//#define L6470      // Enable L6470   all drivers
+//#define TB6560     // Enable TB6560  all drivers
+//#define TB6600     // Enable TB6600  all drivers
+
+//#define TMC2208S   // Enable TMC2208 Standalone all drivers
+//#define TMC2209S   // Enable TMC2209 Standalone all drivers
+//#define TMC2130S   // Enable TMC2130 Standalone all drivers
+//#define TMC2160S   // Enable TMC2160 Standalone all drivers
+//#define TMC26XS    // Enable TMC226X Standalone all drivers
+//#define TMC2660S   // Enable TMC2660 Standalone all drivers
+//#define TMC5130S   // Enable TMC5130 Standalone all drivers
+//#define TMC5160S   // Enable TMC5160 Standalone all drivers
+
+// Physical setup required soldering/wiring for UART/SPI.
+
+//#define TMC2208U   // Enable TMC2208 UART/SPI all drivers
+//#define TMC2209U   // Enable TMC2209 UART/SPI all drivers
+//#define TMC2130U   // Enable TMC2130 UART/SPI all drivers
+//#define TMC2160U   // Enable TMC2160 UART/SPI all drivers
+//#define TMC26XU    // Enable TMC226X UART/SPI all drivers
+//#define TMC2660U   // Enable TMC2660 UART/SPI all drivers
+//#define TMC5130U   // Enable TMC5130 UART/SPI all drivers
+//#define TMC5160U   // Enable TMC5160 UART/SPI all drivers
+
+//Custom driver set if none selected above
+
+//#define CUSTOMDRIVERS     // Define Custom driver set and direction
+#if ENABLED (CUSTOMDRIVERS) //(Not used unless CUSTOMDRTIVERS is enabled)
+   //'A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160'
+   //'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE'
+   //'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE'
+
+ // Timings (Not used unless CUSTOMDRTIVERS is enabled)
+   #define X_DRIVER_TYPE  TMC2208_STANDALONE
+   #define Y_DRIVER_TYPE  TMC2208_STANDALONE
+   #define Z_DRIVER_TYPE  TMC2208_STANDALONE
+   #define E0_DRIVER_TYPE A4988
+   #define E1_DRIVER_TYPE A4988
+   #define E2_DRIVER_TYPE A4988
+
+// Motor directions (Not used unless CUSTOMDRTIVERS is enabled)
+   #define CUSTOMX true // true/false to change direction
+   #define CUSTOMY true // true/false to change direction
+   #define CUSTOMZ true // true/false to change direction
+   #define INVERTE      // enabled = false / disabed = true - to change direction
+
+#endif
+
+//------------------------------
+//Optional settings & features | Note 1kb of ram required for stability.
+//------------------------------
+
+//#define PLR              // Enabled power loss resume - Only functions from SDcard
+//#define ACTIONCOMMANDS   // Enable ACTION COMMANDS for use with octoprint
+//#define RUNOUT           // Enable filament runout sensor - Only If you have this hardware
+//#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardware
+//#define CASELIGHT        // Enable case light menu if board has led header. - Only If you have this hardware
+
+//Used to switch the default board of the model selected
+
+//#define CUSTOMBOARD // Enable Custom Board
+#if ENABLED (CUSTOMBOARD)
+  #define MOTHERBOARD BOARD_BTT_SKR_V1_4  // Board Select CTRL+Click to jump to board list & also set the correct default_env in platfomio.ini
+  #define SERIAL_PORT 0    // Serial port 1
+  #define SERIAL_PORT_2 -1 // Serial port 2
+#endif
+
+//Bed clip logic - use mesh inset or min probe edge to avoid clips not both
+#if ENABLED (BEDCLIPS)
+  #define MESH_INSET 10   // Move mesh in #mm from edge
+  //Set per side
+  //#define MESH_MIN_X MESH_INSET
+  //#define MESH_MIN_Y MESH_INSET
+  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
+  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+#else
+  #define MESH_INSET 0    // Move mesh in #mm from edge
+  //Set per side
+  //#define MESH_MIN_X MESH_INSET
+  //#define MESH_MIN_Y MESH_INSET
+  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
+  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
+#endif
+
+//Motor direction logic - Not used if CUSTOMDRIVERS enabled
+#if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
+  #define INVERTE     // (E direction False) comment out to disabe if wrong direction for (E direction true) - Geared exturders invert E (stock)
+#else
+  //#define INVERTE  // Enable to force on if the above condition is not matched.
+#endif
+
+// Not used if CUSTOMDRIVERS enabled
+#if ENABLED (TMCCHIPS)
+  #define INVERTXYZ   // Invert XYZ direction disable if wrong direction.
+#else
+  //#define INVERTXYZ // Enable to force on
+#endif
+
+//Framework for adding a new printer to this config
+
+//#define NEWMODEL // New model
+
+//--------------------------------------------
+// these are used to simplify macro creation |
+//--------------------------------------------
+
+//Multiextruder
+#if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
+  #define MULTIEXTRUDER
+#endif
+
+//TMC drivers
+#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S) || ANY(TMC2208U, TMC2209U, TMC2130U, TMC2160U, TMC26XU, TMC2660U, TMC5130U, TMC5160U)
+  #define TMCCHIPS
+#endif
+
+//Models with direct drive
+#if ANY(MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
+  #define DIRECTDRIVE
+#endif
+
+//32bit boards models
+#if ANY(GTA30, GTE180)
+  #define STM32
+#endif
+
+//256kb boards models
+#if ANY(GTA10, GTA20, MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
+  #define AT2560
+#endif
+
+#if ENABLED (GTA10D)
     #define GTA10
     #define DUALEX
   #endif
@@ -172,222 +360,6 @@
     #define GTA20
     #define CYCLOPST
   #endif
-
-//----------------------------------------------------------------------------------------------------
-//GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
-
-//#define GTA30       // A30  & Variants - no touchscreen support, for development only
-//#define GTE180      // E180 & Variants - no touchscreen support, for development only
-
-//----------------------------------------------------------------------------------------------------
-//Based on https://github.com/codiac2600/SKR-MK3s-V1.4-Beta
-//SKR 1.4 Boards - vscode: default_envs = #default_envs = LPC1768
-
-//#define BEAR        // Bear MK3/MK3s & Variants - tesing
-
-//vscode: default_envs = #default_envs = LPC1769
-
-//#define BEAR_TURBO  // Bear MK3/MK3s Turbo & Variants - testing
-
-//(Bear & Bear_Turbo)Switch from Bear MK3 to MK2.5
-
-//#define MK25        // Enable to set 12V for Bear MK2.5
-
-//(Bear & Bear_Turbo)Z mod pick only 1 or none for stock
-
-//#define Z320        // Enable to change Zmax to 320
-//#define Z420        // Enable to change Zmax to 420
-
-//(Bear & Bear_Turbo)Extruder mod pick only 1 or none for stock
-
-//#define BMG18       // BMG E 1.8 stepper
-//#define BMG9        // BMG E 0.9 stepper
-
-//(Bear & Bear_Turbo)XY mod pick only 1 or none for stock
-
-//#define GREYBEAR    // XY 0.9 stepper
-
-//---------------
-//Hardware Mods | Assuming you have not installed any additional mods you can skip everything in this section.
-//---------------
-
-//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
-
-//#define TOUCHPROBE  // Enable Touch Type Probe (Bltouch / 3Dtouch)
-//#define FMP         // Enable Fixed Mounted Type Probe (Capacitive / Inductive)
-//#define PINDA       // Enable Pinda Type Probe
-
-//Probe settings
-
-//#define HEATERACCURACY   // Disable heaters while probing - May effect accuracy +-
-//#define HALFSPEED        // Reduce probing speed by 50% = 120 - May effect accuracy +-
-//#define DOUBLESPEED      // Raise probing speed by 100% = 480 - May effect accuracy +-
-
-//(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
-
-//Either Mix or cyclops can be used on M variants do not combine with any other multi extruder options
-//#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
-//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
-
-//Either Mix T or Cyclops T can be used on T variants do not combine with any other multi extruder options
-//#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
-//#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
-
-//Intended for use with D variants do not combine with any other multi extruder options
-//#define DUALEX   // 2 Extruders       2 in 2 - 2 Physical Extruder & 2 Nozzles
-
-//(Driver Mods) enable 1 (MOD) driver type or none for (Stock/A4988)
-
-//#define A5984      // Enable A5984   all drivers
-//#define DRV8825    // Enable DRV8825 all drivers
-//#define LV8729     // Enable LV8729  all drivers
-//#define L6470      // Enable L6470   all drivers
-//#define TB6560     // Enable TB6560  all drivers
-//#define TB6600     // Enable TB6600  all drivers
-
-//#define TMC2208S   // Enable TMC2208 Standalone all drivers
-//#define TMC2209S   // Enable TMC2209 Standalone all drivers
-//#define TMC2130S   // Enable TMC2130 Standalone all drivers
-//#define TMC2160S   // Enable TMC2160 Standalone all drivers
-//#define TMC26XS    // Enable TMC226X Standalone all drivers
-//#define TMC2660S   // Enable TMC2660 Standalone all drivers
-//#define TMC5130S   // Enable TMC5130 Standalone all drivers
-//#define TMC5160S   // Enable TMC5160 Standalone all drivers
-
-// Physical setup required soldering/wiring for UART/SPI.
-
-//#define TMC2208U   // Enable TMC2208 UART/SPI all drivers
-//#define TMC2209U   // Enable TMC2209 UART/SPI all drivers
-//#define TMC2130U   // Enable TMC2130 UART/SPI all drivers
-//#define TMC2160U   // Enable TMC2160 UART/SPI all drivers
-//#define TMC26XU    // Enable TMC226X UART/SPI all drivers
-//#define TMC2660U   // Enable TMC2660 UART/SPI all drivers
-//#define TMC5130U   // Enable TMC5130 UART/SPI all drivers
-//#define TMC5160U   // Enable TMC5160 UART/SPI all drivers
-
-//Custom driver set if none selected above
-
-//#define CUSTOMDRIVERS     // Define Custom driver set and direction
-#if ENABLED (CUSTOMDRIVERS) //(Not used unless CUSTOMDRTIVERS is enabled)
-   //'A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160'
-   //'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE'
-   //'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE'
-
- // Timings (Not used unless CUSTOMDRTIVERS is enabled)
-   #define X_DRIVER_TYPE  TMC2208_STANDALONE
-   #define Y_DRIVER_TYPE  TMC2208_STANDALONE
-   #define Z_DRIVER_TYPE  TMC2208_STANDALONE
-   #define E0_DRIVER_TYPE A4988
-   #define E1_DRIVER_TYPE A4988
-   #define E2_DRIVER_TYPE A4988
-
-// Motor directions (Not used unless CUSTOMDRTIVERS is enabled)
-   #define CUSTOMX true // true/false to change direction
-   #define CUSTOMY true // true/false to change direction
-   #define CUSTOMZ true // true/false to change direction
-   #define INVERTE      // enabled = false / disabed = true - to change direction
-
-#endif
-
-//(Fan Mod) enable 1 (Mod) to override default FAN PWM
-
-//#define MECHFAN     // Enable Mechatronics fan 80 pwm
-//#define RADIALFAN   // Enable Radial fan 50 pwm
-//#define BEAR_FAN    // Enable fan 20 pwm on when not a bear model
-
-//------------------------------
-//Optional settings & features |
-//------------------------------
-
-//Note 1kb of ram should remain for system stability.
-
-//Optional features
-
-//#define PLR              // Enabled power loss resume - Only functions from SDcard
-//#define RUNOUT           // Enable filament runout sensor - Only If you have them and want to use them
-//#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have them and want to use them
-//#define CASELIGHT        // Enable case light menu if board has led header.
-//#define LINADV           // Enable linear advance.
-//#define FANSCALING       // Enabled PID FAN SCALING
-//#define EXTRUSIONSCALING // Enabled PID EXTRUSION SCALING
-//#define ACTIONCOMMANDS   // Enable ACTION COMMANDS for use with octoprint
-//#define MESHVALIDATE     // Enable G26 mesh validation does not work well in my testing
-
-//Disable to save resources on hardware you dont use
-
-//#define NOSCREEN         // Disable the screen - Save alot of resources good for octoprint users
-//#define NOSDCARD         // Disable the sdcard slot - Save alot of resources good for octoprint users
-
-//Used to switch the default board of the model selected in step 1
-
-//#define CUSTOMBOARD // Enable Custom Board
-#if ENABLED (CUSTOMBOARD)
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4  // Board Select CTRL+Click to jump to board list & also set the correct default_env in platfomio.ini
-  #define SERIAL_PORT 0    // Serial port 1
-  #define SERIAL_PORT_2 -1 // Serial port 2
-#endif
-
-//Framework for adding a new printer to this config
-
-//#define NEWMODEL // New model
-
-//----------------------------------------------------------------------------------------------------
-
-//Multiextruder
-#if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
-  #define MULTIEXTRUDER
-#endif
-
-//TMC drivers
-#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S) || ANY(TMC2208U, TMC2209U, TMC2130U, TMC2160U, TMC26XU, TMC2660U, TMC5130U, TMC5160U)
-  #define TMCCHIPS
-#endif
-
-//Models with direct drive
-#if ANY(MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
-  #define DIRECTDRIVE
-#endif
-
-//32bit boards models
-#if ANY(GTA30, GTE180)
-  #define STM32
-#endif
-
-//256kb boards models
-#if ANY(GTA10, GTA20, MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
-  #define AT2560
-#endif
-
-//Bed clip logic - use mesh inset or min probe edge to avoid clips not both
-#if ENABLED (BEDCLIPS)
-  #define MESH_INSET 10   // Move mesh in #mm from edge
-  //Set per side
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
-#else
-  #define MESH_INSET 0    // Move mesh in #mm from edge
-  //Set per side
-  //#define MESH_MIN_X MESH_INSET
-  //#define MESH_MIN_Y MESH_INSET
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET)
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET)
-#endif
-
-//Motor direction logic - Not used if CUSTOMDRIVERS enabled
-#if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
-  #define INVERTE     // (E direction False) comment out to disabe if wrong direction for (E direction true) - Geared exturders invert E (stock)
-#else
-  //#define INVERTE  // Enable to force on if the above condition is not matched.
-#endif
-
-// Not used if CUSTOMDRIVERS enabled
-#if ENABLED (TMCCHIPS)
-  #define INVERTXYZ   // Invert XYZ direction disable if wrong direction.
-#else
-  //#define INVERTXYZ // Enable to force on
-#endif
 
 //END_START_HERE-----------------------------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1751,13 +1723,7 @@
 #define Z_PROBE_SPEED_FAST Z_PROBE_SPEED_SLOW
 
 // Feedrate (mm/m) for the "accurate" probe of each point
-#if ENABLED (HALFSPEED)
-  #define Z_PROBE_SPEED_SLOW (2*60)  // 120 Probe speed reduce if accuracy is poor
-#elif ENABLED (DOUBLESPEED)
-  #define Z_PROBE_SPEED_SLOW (8*60)  // 480 Probe speed raise if accuracy is poor
-#else
-  #define Z_PROBE_SPEED_SLOW (4*60)  // 240 Probe speed reduce/raise if accuracy is poor
-#endif
+#define Z_PROBE_SPEED_SLOW (4*60)  // 240 Probe speed reduce/raise if accuracy is poor
 
 /**
  * Probe Activation Switch
@@ -1841,15 +1807,13 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-#if ENABLED (HEATERACCURACY)
-#define PROBING_HEATERS_OFF       // Turn heaters off when probing
+//#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
   #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
 #endif
 //#define PROBING_FANS_OFF          // Turn fans off when probing
 //#define PROBING_STEPPERS_OFF      // Turn steppers off (unless needed to hold position) when probing
 //#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
-#endif
 
 // Require minimum nozzle and/or bed temperature for probing
 //#define PREHEAT_BEFORE_PROBING
@@ -2231,8 +2195,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  #if ENABLED (MESHVALIDATE)
-    #define G26_MESH_VALIDATION
+  //#define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
@@ -2242,7 +2205,6 @@
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
     #define G26_RETRACT_MULTIPLIER   1.0  // G26 Q (retraction) used by default between mesh test elements.
   #endif
-#endif
 #endif
 
   //===========================================================================
@@ -2652,11 +2614,9 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-#if DISABLED (NOSDCARD)
-  #define SDSUPPORT
+#define SDSUPPORT
 #if ENABLED (STM32) && ENABLED (SDSUPPORT)
   #define SDIO_SUPPORT
-#endif
 #endif
 
 /**
@@ -2909,7 +2869,6 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#if DISABLED (NOSCREEN)
   #if ENABLED (GTA20)
     #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
     #define ST7920_DELAY_1 DELAY_NS(200)
@@ -2925,7 +2884,6 @@
  #else //A10 - I3pro
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #endif
-#endif
 
 //
 // ReprapWorld Graphical LCD
