@@ -3478,10 +3478,10 @@
   #define USER_GCODE_4 "G29 P4 R1\nM500"
 
   #define USER_DESC_5 "PIDtune Hotend"
-  #define USER_GCODE_5 "M303 U1 E0 S250 C8\nM500"
+  #define USER_GCODE_5 "M303 U1 E0 S200 C8\nM500"
 
   #define USER_DESC_6 "PIDtune Bed"
-  #define USER_GCODE_6 "M303 U1 E-1 S90 C8\nM500"
+  #define USER_GCODE_6 "M303 U1 E-1 S60 C8\nM500"
 
   #define USER_DESC_7 "Unconditional stop"
   #define USER_GCODE_7 "M0"
@@ -3540,10 +3540,10 @@
   #define USER_GCODE_8 "G29 J2\nM500"
 
   #define USER_DESC_9 "PIDtune Hotend"
-  #define USER_GCODE_9 "M303 U1 E0 S250 C8\nM500"
+  #define USER_GCODE_9 "M303 U1 E0 S200 C8\nM500"
 
   #define USER_DESC_10 "PIDtune Bed"
-  #define USER_GCODE_10 "M303 U1 E-1 S90 C8\nM500"
+  #define USER_GCODE_10 "M303 U1 E-1 S60 C8\nM500"
 
   #define USER_DESC_11 "Unconditional Stop"
   #define USER_GCODE_11 "M0"
