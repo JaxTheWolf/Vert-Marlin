@@ -98,13 +98,6 @@
 //#define GTA20T      // A20T & Variants
 //#define GTA20CT     // A20CT & Variants
 //#define MECREATOR2  // Mecreator2 & Variants
-//#define I3PROW      // I3PROW & Variants
-
-//slated to remove before release as i normalize closer to upstream
-//#define I3PROA      // I3ProA & Variants
-//#define I3PROB      // I3PROB & Variants
-//#define I3PROC      // I3PROC & Variants
-//#define I3PROX      // I3PROX & Variants
 
 //----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
@@ -262,7 +255,7 @@
 #endif
 
 //Models with direct drive
-#if ANY(MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
+#if ENABLED (MECREATOR2)
   #define DIRECTDRIVE
 #endif
 
@@ -272,7 +265,7 @@
 #endif
 
 //256kb boards models
-#if ANY(GTA10, GTA20, MECREATOR2, I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
+#if ANY(GTA10, GTA20, MECREATOR2)
   #define AT2560
 #endif
 
@@ -433,8 +426,6 @@
   #define MOTHERBOARD BOARD_GT2560_V3
 #elif ENABLED (GTA20)
   #define MOTHERBOARD BOARD_GT2560_V3_A20
-#elif ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
-  #define MOTHERBOARD BOARD_GT2560_REV_A_PLUS
 #elif ENABLED (MECREATOR2)
   #define MOTHERBOARD BOARD_GT2560_V3_MC2
 #elif ENABLED (GTA30)
@@ -833,19 +824,11 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   //FIND YOUR OWN: "M303 U1 E0 S250 C8" HOTEND PID
-  #if ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
-    #define  DEFAULT_Kp 22.2
-    #define  DEFAULT_Ki 1.08
-    #define  DEFAULT_Kd 114
-  #elif ENABLED (I3PROB)
-    #define DEFAULT_Kp 12.33
-    #define DEFAULT_Ki 0.51
-    #define DEFAULT_Kd 74.50
-  #elif ENABLED (MECREATOR2)
+  #if ENABLED (MECREATOR2)
     #define  DEFAULT_Kp 14.94
     #define  DEFAULT_Ki 0.74
     #define  DEFAULT_Kd 74.98
-  #elif ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUELEX, GTA30, GTE180, GTD200)
+  #elif ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUELEX, GTA30, GTE180)
     #define  DEFAULT_Kp 45.80
     #define  DEFAULT_Ki 3.61
     #define  DEFAULT_Kd 145.39
@@ -905,15 +888,7 @@
 #if ENABLED(PIDTEMPBED)
   //#define MIN_BED_POWER 0
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
-  #if ANY(I3PROW, I3PROA, I3PROC, I3PROX, GTM201)
-    #define  DEFAULT_bedKp 10.00
-    #define  DEFAULT_bedKi .023
-    #define  DEFAULT_bedKd 305.4
-  #elif ENABLED (I3PROB)
-    #define DEFAULT_bedKp 234.88
-    #define DEFAULT_bedKi 42.79
-    #define DEFAULT_bedKd 322.28
-  #elif ENABLED (MECREATOR2)
+  #if ENABLED (MECREATOR2)
     #define  DEFAULT_bedKp 129.40
     #define  DEFAULT_bedKi 25.07
     #define  DEFAULT_bedKd 166.96
@@ -1059,7 +1034,7 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#if ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX, BEAR, BEAR_TURBO)
+#if ANY(BEAR, BEAR_TURBO)
   #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
@@ -1399,13 +1374,11 @@
  */
 #if DISABLED (NEWMODEL)
 #if DISABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }  // ungeared extruder found on a10/a20/a30/i3pro
+  #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }  // ungeared extruder found on a10/a20/a30
   //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 95 }
-  //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 2560, 95 } // M8 Z rod steps 2560 found on old I3pro
 #elif ENABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 430 } // geared extruder found on M & T variants
   //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 800, 430 }
-  //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 2560, 430 } // M8 Z rod steps 2560 found on old I3pro
 #endif
 
 #if ENABLED (GREYBEAR) && ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)
@@ -1829,14 +1802,14 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#if ENABLED (I3PROC) && ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR false
-#elif ENABLED (MECREATOR2) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
+#if ENABLED (MECREATOR2) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR false
+#elif ENABLED (MECREATOR2) && DISABLED (CUSTOMDRIVERS)
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR true  
 #elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
@@ -1844,14 +1817,6 @@
 #elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR true
-#elif ENABLED (I3PROC) && DISABLED (CUSTOMDRIVERS)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR false
-#elif ENABLED (MECREATOR2) && DISABLED (CUSTOMDRIVERS)
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true
 #elif ENABLED (NEWMODEL) && DISABLED (CUSTOMDRIVERS) // New model motor direction with a4988 / not TMC
   #define INVERT_X_DIR true
@@ -1932,11 +1897,7 @@
 // @section machine
 
 // Max XYZ Travel Disatnce from 0 in MM before hitting the end.
-#if ENABLED (GTM201)
-  #define X_BED_SIZE 280
-  #define Y_BED_SIZE 220
-  #define Z_MAX_POS 160
-#elif ENABLED (GTA20)
+#if ENABLED (GTA20)
   #define X_BED_SIZE 255
   #define Y_BED_SIZE 255
   #define Z_MAX_POS 250
@@ -1948,14 +1909,6 @@
   #define X_BED_SIZE 130
   #define Y_BED_SIZE 130
   #define Z_MAX_POS 130
-#elif ANY(I3PROA, I3PROB, I3PROC, I3PROW, I3PROX)
-  #define X_BED_SIZE 200
-  #define Y_BED_SIZE 200
-  #define Z_MAX_POS 180
-#elif ENABLED (I3PROA)
-  #define X_BED_SIZE 220
-  #define Y_BED_SIZE 220
-  #define Z_MAX_POS 200
 #elif ENABLED (MECREATOR2)
   #define X_BED_SIZE 155
   #define Y_BED_SIZE 165
@@ -2862,7 +2815,7 @@
  #elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
    #define YHCB2004
    #define ULTIPANEL
- #else //A10 - I3pro
+ #else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
   #endif
 
