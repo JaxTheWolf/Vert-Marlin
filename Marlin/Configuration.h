@@ -98,10 +98,12 @@
 //#define GTA20T      // A20T & Variants
 //#define GTA20CT     // A20CT & Variants
 //#define MECREATOR2  // Mecreator2 & Variants
+//#define I3PROW      // I3PROW & Variants
+
+//slated to remove before release as i normalize closer to upstream
 //#define I3PROA      // I3ProA & Variants
 //#define I3PROB      // I3PROB & Variants
 //#define I3PROC      // I3PROC & Variants
-//#define I3PROW      // I3PROW & Variants
 //#define I3PROX      // I3PROX & Variants
 
 //----------------------------------------------------------------------------------------------------
