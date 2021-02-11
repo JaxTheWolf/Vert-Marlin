@@ -105,34 +105,6 @@
 //#define GTA30       // A30  & Variants - no touchscreen support, for development only
 //#define GTE180      // E180 & Variants - no touchscreen support, for development only
 
-//----------------------------------------------------------------------------------------------------
-//Based on https://github.com/codiac2600/SKR-MK3s-V1.4-Beta
-//SKR 1.4 Boards - vscode: default_envs = #default_envs = LPC1768
-
-//#define BEAR        // Bear MK3/MK3s & Variants - tesing
-
-//vscode: default_envs = #default_envs = LPC1769
-
-//#define BEAR_TURBO  // Bear MK3/MK3s Turbo & Variants - testing
-
-//(Bear & Bear_Turbo)Switch from Bear MK3 to MK2.5
-
-//#define MK25        // Enable to set 12V for Bear MK2.5
-
-//(Bear & Bear_Turbo)Z mod pick only 1 or none for stock
-
-//#define Z320        // Enable to change Zmax to 320
-//#define Z420        // Enable to change Zmax to 420
-
-//(Bear & Bear_Turbo)Extruder mod pick only 1 or none for stock
-
-//#define BMG18       // BMG E 1.8 stepper
-//#define BMG9        // BMG E 0.9 stepper
-
-//(Bear & Bear_Turbo)XY mod pick only 1 or none for stock
-
-//#define GREYBEAR    // XY 0.9 stepper
-
 //---------------
 //Hardware Mods | Assuming you have not installed any additional mods you can skip everything in this section.
 //---------------
@@ -388,9 +360,6 @@
 #elif ENABLED (NEWMODEL)
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 -1
-#elif ANY (BEAR, BEAR_TURBO)
-  #define SERIAL_PORT 0
-  #define SERIAL_PORT_2 -1
 #elif ENABLED (CUSTOMBOARD)
 #else
   #define SERIAL_PORT 0
@@ -432,10 +401,6 @@
   #define MOTHERBOARD BOARD_GTM32_MINI_A30
 #elif ENABLED (GTE180)
   #define MOTHERBOARD BOARD_GTM32_MINI
-#elif ENABLED (BEAR)
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4
-#elif ENABLED (BEAR_TURBO)
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
 #elif ENABLED (NEWMODEL) //Replace NEW MODEL with real name
   #define MOTHERBOARD BOARD_RAMPS_14_EFB   // define new models mainboard
 #else
@@ -832,10 +797,6 @@
     #define  DEFAULT_Kp 45.80
     #define  DEFAULT_Ki 3.61
     #define  DEFAULT_Kd 145.39
-  #elif ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_Kp 16.13
-    #define DEFAULT_Ki 1.16
-    #define DEFAULT_Kd 56.23
   #elif ENABLED (NEWMODEL) // Hotend PID
     #define  DEFAULT_Kp 1
     #define  DEFAULT_Ki 1
@@ -896,10 +857,6 @@
     #define  DEFAULT_bedKp 369.610
     #define  DEFAULT_bedKi 54.132
     #define  DEFAULT_bedKd 602.870
-  #elif ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_bedKp 126.13
-    #define DEFAULT_bedKi 4.30
-    #define DEFAULT_bedKd 924.76
   #elif ENABLED (NEWMODEL) // BED PID
     #define  DEFAULT_bedKp 1
     #define  DEFAULT_bedKi 1
@@ -1001,7 +958,7 @@
   //#define USE_XMAX_PLUG
   //#define USE_YMAX_PLUG
   //#define USE_ZMAX_PLUG
-#else //A10 & A20 & A30 & BEAR
+#else //A10 & A20 & A30
   #define USE_XMIN_PLUG
   #define USE_YMIN_PLUG
   #define USE_ZMIN_PLUG
@@ -1034,15 +991,7 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#if ANY(BEAR, BEAR_TURBO)
-  #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the probe.
-#elif ENABLED (MECREATOR2)
+#if ENABLED (MECREATOR2)
   #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
@@ -1373,26 +1322,12 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #if DISABLED (NEWMODEL)
-#if DISABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
+#if DISABLED (MULTIEXTRUDER)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }  // ungeared extruder found on a10/a20/a30
   //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 95 }
-#elif ENABLED (MULTIEXTRUDER) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
+#elif ENABLED (MULTIEXTRUDER)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 430 } // geared extruder found on M & T variants
   //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 800, 430 }
-#endif
-
-#if ENABLED (GREYBEAR) && ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 830 }  // BMG1.8 + grey
-#elif ENABLED (BMG18) && ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 830 }  // BMG1.8
-#elif ENABLED (GREYBEAR) && ENABLED (BMG9) && ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 1660 }  // BMG 0.9 +grey
-#elif ENABLED (BMG9) && ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 1660 }  // BMG 0.9
-#elif ENABLED (GREYBEAR) && ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 200, 200, 400, 280 }  // stock + grey
-#elif ANY (BEAR, BEAR_TURBO)
-    #define DEFAULT_AXIS_STEPS_PER_UNIT   { 100, 100, 400, 280 }  //stock
 #endif
 #endif
 
@@ -1666,10 +1601,6 @@
   #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ
 #elif ENABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
   #define NOZZLE_TO_PROBE_OFFSET { -40, 0, 0 }  // Nozzle To Probe offset XYZ A10M+T/A20M+T - this is what it is on my test machines yours could differ
-#elif ANY (BEAR, BEAR_TURBO) && ENABLED (TOUCHPROBE)
-  #define NOZZLE_TO_PROBE_OFFSET { 26, 10, 0 }
-#elif ANY (BEAR, BEAR_TURBO)
-  #define NOZZLE_TO_PROBE_OFFSET { 23, 5, 0 }
 #else
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
 #endif
@@ -1810,11 +1741,11 @@
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true  
-#elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
+#elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) 
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR false
-#elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS) || ANY (BEAR, BEAR_TURBO) && DISABLED (CUSTOMDRIVERS)
+#elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
@@ -1917,16 +1848,6 @@
   #define X_BED_SIZE 230
   #define Y_BED_SIZE 230
   #define Z_MAX_POS 250
-#elif ANY (BEAR, BEAR_TURBO)
-  #define X_BED_SIZE 255
-  #define Y_BED_SIZE 212.5
-  #if ENABLED (Z320)
-  #define Z_MAX_POS 320
-  #elif ENABLED (Z420)
-  #define Z_MAX_POS 420
-  #else
-  #define Z_MAX_POS 210
-  #endif
 #elif ENABLED (NEWMODEL) // Build area XYZ
   #define X_BED_SIZE 200
   #define Y_BED_SIZE 200
@@ -1939,9 +1860,6 @@
 #elif ANY (GTA10, GTA20, GTA30)
   #define X_MIN_POS -10  //- this is what it is on my test machines yours could differ
   #define Y_MIN_POS -5   //- this is what it is on my test machines yours could differ
-#elif ANY (BEAR, BEAR_TURBO)
-  #define X_MIN_POS 0
-  #define Y_MIN_POS -4
 #elif ENABLED (NEWMODEL)
   #define X_MIN_POS 0
   #define Y_MIN_POS 0
@@ -1999,16 +1917,16 @@
 #define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
 
-   #if ANY (MIXT, CYCLOPST) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
+   #if ANY (MIXT, CYCLOPST)
    #define NUM_RUNOUT_SENSORS   3
    #define FIL_RUNOUT_PIN      66
    #define FIL_RUNOUT2_PIN     67
    #define FIL_RUNOUT3_PIN     54
-   #elif ANY (MIX, CYCLOPS, DUELEX) && DISABLED (BEAR) && DISABLED (BEAR_TURBO)
+   #elif ANY (MIX, CYCLOPS, DUELEX)
    #define NUM_RUNOUT_SENSORS   2
    #define FIL_RUNOUT_PIN      66
    #define FIL_RUNOUT2_PIN     67
-   #elif DISABLED (BEAR) && DISABLED (BEAR_TURBO)
+   #else
    #define NUM_RUNOUT_SENSORS   1
    #define FIL_RUNOUT_PIN      66
    #endif
@@ -2155,7 +2073,6 @@
   //#define UBL_Z_RAISE_WHEN_OFF_MESH 0           // When the nozzle is off the mesh, this value is used as the Z-Height correction value.
 
 // Add a menu item to move between bed corners for manual bed adjustment
-#if DISABLED (BEAR) && DISABLED (BEAR_TURBO)
 #define LEVEL_BED_CORNERS
 #if ENABLED(LEVEL_BED_CORNERS)
   #define LEVEL_CORNERS_INSET_LFRB { 40, 40, 40, 40 } // (mm) Left, Front, Right, Back insets
@@ -2191,7 +2108,6 @@
    *  LF --------- RF   LF --------- RF    LF --------- RF   LF --------- RF
    */
   #define LEVEL_CORNERS_LEVELING_ORDER { LF, RF, RB, LB }
-#endif
 #endif
 
 /**
@@ -3276,8 +3192,7 @@
 #endif
 
 // Support for Adafruit Neopixel LED driver
-#if ANY (BEAR, BEAR_TURBO)
-#define NEOPIXEL_LED
+//#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
   #define NEOPIXEL_TYPE   NEO_GRB // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
   #define NEOPIXEL_PIN     P1_24       // LED driving pin
@@ -3292,7 +3207,6 @@
   // Use a single NeoPixel LED for static (background) lighting
   //#define NEOPIXEL_BKGD_LED_INDEX  0               // Index of the LED to use
   //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 } // R, G, B, W
-#endif
 #endif
 
 /**
