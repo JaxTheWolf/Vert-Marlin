@@ -87,16 +87,19 @@
 //#define GTA10C      // A10C & Variants
 //#define GTA10T      // A10T & Variants
 //#define GTA10CT     // A10CT & Variants
+
 //#define GTA10PRO    // A10 Pro Variants
 //#define GTA10MPRO   // A10M Pro Variants
 //#define GTA10CPRO   // A10C Pro Variants
 //#define GTA10TPRO   // A10T Pro Variants
 //#define GTA10CTPRO  // A10CT Pro Variants
+
 //#define GTA20       // A20 & Variants
 //#define GTA20M      // A20M & Variants
 //#define GTA20C      // A20C & Variants
 //#define GTA20T      // A20T & Variants
 //#define GTA20CT     // A20CT & Variants
+
 //#define MECREATOR2  // Mecreator2 & Variants
 
 //----------------------------------------------------------------------------------------------------
@@ -132,55 +135,11 @@
 //#define TMC5130S   // Enable TMC5130 Standalone all drivers
 //#define TMC5160S   // Enable TMC5160 Standalone all drivers
 
-// Physical setup required soldering/wiring for UART/SPI.
-
-//#define TMC2208U   // Enable TMC2208 UART/SPI all drivers
-//#define TMC2209U   // Enable TMC2209 UART/SPI all drivers
-//#define TMC2130U   // Enable TMC2130 UART/SPI all drivers
-//#define TMC2160U   // Enable TMC2160 UART/SPI all drivers
-//#define TMC26XU    // Enable TMC226X UART/SPI all drivers
-//#define TMC2660U   // Enable TMC2660 UART/SPI all drivers
-//#define TMC5130U   // Enable TMC5130 UART/SPI all drivers
-//#define TMC5160U   // Enable TMC5160 UART/SPI all drivers
-
-//Custom driver set if none selected above
-
-//#define CUSTOMDRIVERS     // Define Custom driver set and direction
-#if ENABLED (CUSTOMDRIVERS) //(Not used unless CUSTOMDRTIVERS is enabled)
-   //'A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160'
-   //'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE'
-   //'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE'
-
- // Timings (Not used unless CUSTOMDRTIVERS is enabled)
-   #define X_DRIVER_TYPE  TMC2208_STANDALONE
-   #define Y_DRIVER_TYPE  TMC2208_STANDALONE
-   #define Z_DRIVER_TYPE  TMC2208_STANDALONE
-   #define E0_DRIVER_TYPE A4988
-   #define E1_DRIVER_TYPE A4988
-   #define E2_DRIVER_TYPE A4988
-
-// Motor directions (Not used unless CUSTOMDRTIVERS is enabled)
-   #define CUSTOMX true // true/false to change direction
-   #define CUSTOMY true // true/false to change direction
-   #define CUSTOMZ true // true/false to change direction
-   #define INVERTE      // enabled = false / disabed = true - to change direction
-
-#endif
-
 //------------------------------
 //Optional settings & features | Note 1kb of ram required for stability.
 //------------------------------
 
-//#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardware
-
-//Used to switch the default board of the model selected
-
-//#define CUSTOMBOARD // Enable Custom Board
-#if ENABLED (CUSTOMBOARD)
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4  // Board Select CTRL+Click to jump to board list & also set the correct default_env in platfomio.ini
-  #define SERIAL_PORT 0    // Serial port 1
-  #define SERIAL_PORT_2 -1 // Serial port 2
-#endif
+//#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardward
 
 //Bed clip logic - use mesh inset or min probe edge to avoid clips not both
 #if ENABLED (BEDCLIPS)
@@ -194,23 +153,18 @@
   #define MESH_INSET 0
 #endif
 
-//Motor direction logic - Not used if CUSTOMDRIVERS enabled
+//Motor direction logic
 #if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
   #define INVERTE     // (E direction False) comment out to disabe if wrong direction for (E direction true) - Geared exturders invert E (stock)
 #else
   //#define INVERTE  // Enable to force on if the above condition is not matched.
 #endif
 
-// Not used if CUSTOMDRIVERS enabled
 #if ENABLED (TMCCHIPS)
   #define INVERTXYZ   // Invert XYZ direction disable if wrong direction.
 #else
   //#define INVERTXYZ // Enable to force on
 #endif
-
-//Framework for adding a new printer to this config
-
-//#define NEWMODEL // New model
 
 //--------------------------------------------
 // these are used to simplify macro creation |
@@ -222,7 +176,7 @@
 #endif
 
 //TMC drivers
-#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S) || ANY(TMC2208U, TMC2209U, TMC2130U, TMC2160U, TMC26XU, TMC2660U, TMC5130U, TMC5160U)
+#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S)
   #define TMCCHIPS
 #endif
 
@@ -241,7 +195,6 @@
   #define AT2560
 #endif
 
-//(Multi Extruder Mods) These can be added to any model assuming you added the hardware to make use of it.
 //#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
 //#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
 //#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
@@ -357,10 +310,6 @@
 #elif ENABLED (AT2560)
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 3
-#elif ENABLED (NEWMODEL)
-  #define SERIAL_PORT 0
-  //#define SERIAL_PORT_2 -1
-#elif ENABLED (CUSTOMBOARD)
 #else
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 -1
@@ -389,9 +338,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-#if ENABLED (CUSTOMBOARD)
-//use custom defined board
-#elif ENABLED (GTA10)
+#if ENABLED (GTA10)
   #define MOTHERBOARD BOARD_GT2560_V3
 #elif ENABLED (GTA20)
   #define MOTHERBOARD BOARD_GT2560_V3_A20
@@ -401,8 +348,6 @@
   #define MOTHERBOARD BOARD_GTM32_MINI_A30
 #elif ENABLED (GTE180)
   #define MOTHERBOARD BOARD_GTM32_MINI
-#elif ENABLED (NEWMODEL) //Replace NEW MODEL with real name
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB   // define new models mainboard
 #else
   #error No model selected in setup.
  #endif
@@ -797,10 +742,6 @@
     #define  DEFAULT_Kp 45.80
     #define  DEFAULT_Ki 3.61
     #define  DEFAULT_Kd 145.39
-  #elif ENABLED (NEWMODEL) // Hotend PID
-    #define  DEFAULT_Kp 1
-    #define  DEFAULT_Ki 1
-    #define  DEFAULT_Kd 1
   #else // A10 & A20
     #define  DEFAULT_Kp 33.29
     #define  DEFAULT_Ki 3.83
@@ -857,10 +798,6 @@
     #define  DEFAULT_bedKp 369.610
     #define  DEFAULT_bedKi 54.132
     #define  DEFAULT_bedKd 602.870
-  #elif ENABLED (NEWMODEL) // BED PID
-    #define  DEFAULT_bedKp 1
-    #define  DEFAULT_bedKi 1
-    #define  DEFAULT_bedKd 1
   #else //A10 & A20
     #define  DEFAULT_bedKp 42.96
     #define  DEFAULT_bedKi 8.32
@@ -951,13 +888,6 @@
   #define USE_ZMAX_PLUG
   #define USE_XMIN_PLUG
   #define USE_YMAX_PLUG
-#elif ENABLED (NEWMODEL)  //Endstops
-  #define USE_XMIN_PLUG
-  #define USE_YMIN_PLUG
-  #define USE_ZMIN_PLUG
-  //#define USE_XMAX_PLUG
-  //#define USE_YMAX_PLUG
-  //#define USE_ZMAX_PLUG
 #else //A10 & A20 & A30
   #define USE_XMIN_PLUG
   #define USE_YMIN_PLUG
@@ -999,14 +929,6 @@
   #define Y_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
   #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
   #define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the probe.
-#elif ENABLED (NEWMODEL) //Endstop inverting
-  #define X_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Y_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Z_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define X_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Y_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Z_MAX_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
-  #define Z_MIN_PROBE_ENDSTOP_INVERTING true  // set to true to invert the logic of the probe.
 #else //A10 & A20 & A30
   #define X_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING true  // set to true to invert the logic of the endstop.
@@ -1133,86 +1055,6 @@
    #define E2_DRIVER_TYPE TMC5160_STANDALONE
 #endif
 
-#if ENABLED (TMC2208U)
-  #define X_DRIVER_TYPE  TMC2208
-  #define Y_DRIVER_TYPE  TMC2208
-  #define Z_DRIVER_TYPE  TMC2208
-  #define Z2_DRIVER_TYPE TMC2208
-  #define E0_DRIVER_TYPE TMC2208
-  #define E1_DRIVER_TYPE TMC2208
-  #define E2_DRIVER_TYPE TMC2208
-#endif
-
-#if ENABLED (TMC2209U)
-   #define X_DRIVER_TYPE  TMC2209
-   #define Y_DRIVER_TYPE  TMC2209
-   #define Z_DRIVER_TYPE  TMC2209
-   #define Z2_DRIVER_TYPE TMC2209
-   #define E0_DRIVER_TYPE TMC2209
-   #define E1_DRIVER_TYPE TMC2209
-   #define E2_DRIVER_TYPE TMC2209
-#endif
-
-#if ENABLED (TMC2130U)
-   #define X_DRIVER_TYPE  TMC2130
-   #define Y_DRIVER_TYPE  TMC2130
-   #define Z_DRIVER_TYPE  TMC2130
-   #define Z2_DRIVER_TYPE TMC2130
-   #define E0_DRIVER_TYPE TMC2130
-   #define E1_DRIVER_TYPE TMC2130
-   #define E2_DRIVER_TYPE TMC2130
-#endif
-
-#if ENABLED (TMC2160U)
-   #define X_DRIVER_TYPE  TMC2160
-   #define Y_DRIVER_TYPE  TMC2160
-   #define Z_DRIVER_TYPE  TMC2160
-   #define Z2_DRIVER_TYPE TMC2160
-   #define E0_DRIVER_TYPE TMC2160
-   #define E1_DRIVER_TYPE TMC2160
-   #define E2_DRIVER_TYPE TMC2160
-#endif
-
-#if ENABLED (TMC26XU)
-   #define X_DRIVER_TYPE  TMC26X
-   #define Y_DRIVER_TYPE  TMC26X
-   #define Z_DRIVER_TYPE  TMC26X
-   #define Z2_DRIVER_TYPE TMC26X
-   #define E0_DRIVER_TYPE TMC26X
-   #define E1_DRIVER_TYPE TMC26X
-   #define E2_DRIVER_TYPE TMC26X
-#endif
-
-#if ENABLED (TMC2660U)
-   #define X_DRIVER_TYPE  TMC2660
-   #define Y_DRIVER_TYPE  TMC2660
-   #define Z_DRIVER_TYPE  TMC2660
-   #define Z2_DRIVER_TYPE TMC2660
-   #define E0_DRIVER_TYPE TMC2660
-   #define E1_DRIVER_TYPE TMC2660
-   #define E2_DRIVER_TYPE TMC2660
-#endif
-
-#if ENABLED (TMC5130U)
-   #define X_DRIVER_TYPE  TMC5130
-   #define Y_DRIVER_TYPE  TMC5130
-   #define Z_DRIVER_TYPE  TMC5130
-   #define Z2_DRIVER_TYPE TMC5130
-   #define E0_DRIVER_TYPE TMC5130
-   #define E1_DRIVER_TYPE TMC5130
-   #define E2_DRIVER_TYPE TMC5130
-#endif
-
-#if ENABLED (TMC5160U)
-   #define X_DRIVER_TYPE  TMC5160
-   #define Y_DRIVER_TYPE  TMC5160
-   #define Z_DRIVER_TYPE  TMC5160
-   #define Z2_DRIVER_TYPE TMC5160
-   #define E0_DRIVER_TYPE TMC5160
-   #define E1_DRIVER_TYPE TMC5160
-   #define E2_DRIVER_TYPE TMC5160
-#endif
-
 #if ENABLED (DRV8825)
    #define X_DRIVER_TYPE  DRV8825
    #define Y_DRIVER_TYPE  DRV8825
@@ -1289,9 +1131,7 @@
  *
  * :[2,3,4,5,6,7]
  */
-#if DISABLED (TMC2208U, TMC2209U, TMC2130U, TMC2160U, TMC26XU, TMC2660U, TMC5130U, TMC5160U)
-  #define ENDSTOP_NOISE_THRESHOLD 2
-#endif
+#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
 #define DETECT_BROKEN_ENDSTOP
@@ -1321,18 +1161,12 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#if DISABLED (NEWMODEL)
 #if DISABLED (MULTIEXTRUDER)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }  // ungeared extruder found on a10/a20/a30
   //#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 800, 95 }
 #elif ENABLED (MULTIEXTRUDER)
   #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 430 } // geared extruder found on M & T variants
   //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 800, 430 }
-#endif
-#endif
-
-#if ENABLED (NEWMODEL)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 }
 #endif
 
 /**
@@ -1733,38 +1567,26 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#if ENABLED (MECREATOR2) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
+#if ENABLED (MECREATOR2) && ENABLED(INVERTXYZ)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR false
-#elif ENABLED (MECREATOR2) && DISABLED (CUSTOMDRIVERS)
+#elif ENABLED (MECREATOR2)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR true  
-#elif ENABLED (GTE180) && DISABLED (CUSTOMDRIVERS) 
+#elif ENABLED (GTE180)
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR true
   #define INVERT_Z_DIR false
-#elif ENABLED (GTE180) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS)
+#elif ENABLED (GTE180) && ENABLED(INVERTXYZ)
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
-#elif ENABLED (NEWMODEL) && DISABLED (CUSTOMDRIVERS) // New model motor direction with a4988 / not TMC
-  #define INVERT_X_DIR true
-  #define INVERT_Y_DIR true
-  #define INVERT_Z_DIR false
-#elif ENABLED (NEWMODEL) && ENABLED(INVERTXYZ) && DISABLED (CUSTOMDRIVERS) // New model motors inverted for TMC
+#elif ENABLED (INVERTXYZ) //A10 || A20 || A30 with TMC
   #define INVERT_X_DIR false
   #define INVERT_Y_DIR false
   #define INVERT_Z_DIR true
-#elif ENABLED (INVERTXYZ) && DISABLED (CUSTOMDRIVERS) //A10 || A20 || A30 with TMC
-  #define INVERT_X_DIR false
-  #define INVERT_Y_DIR false
-  #define INVERT_Z_DIR true
-#elif ENABLED (CUSTOMDRIVERS)
-  #define INVERT_X_DIR CUSTOMX
-  #define INVERT_Y_DIR CUSTOMY
-  #define INVERT_Z_DIR CUSTOMZ
 #else //A10 || A20  || A30
   #define INVERT_X_DIR true
   #define INVERT_Y_DIR true
@@ -1815,10 +1637,6 @@
   #define X_HOME_DIR -1
   #define Y_HOME_DIR 1
   #define Z_HOME_DIR 1
-#elif ENABLED (NEWMODEL) //Endstop min or max
-  #define X_HOME_DIR -1
-  #define Y_HOME_DIR -1
-  #define Z_HOME_DIR -1
 #else //A10 & A20 & A30
   #define X_HOME_DIR -1
   #define Y_HOME_DIR -1
@@ -1848,10 +1666,6 @@
   #define X_BED_SIZE 230
   #define Y_BED_SIZE 230
   #define Z_MAX_POS 250
-#elif ENABLED (NEWMODEL) // Build area XYZ
-  #define X_BED_SIZE 200
-  #define Y_BED_SIZE 200
-  #define Z_MAX_POS  200
 #endif
 
 #if  ANY (GTA10, GTA20, GTA30) && ANY(MIXT, CYCLOPST, CYCLOPST)
@@ -1860,9 +1674,6 @@
 #elif ANY (GTA10, GTA20, GTA30)
   #define X_MIN_POS -10  //- this is what it is on my test machines yours could differ
   #define Y_MIN_POS -5   //- this is what it is on my test machines yours could differ
-#elif ENABLED (NEWMODEL)
-  #define X_MIN_POS 0
-  #define Y_MIN_POS 0
 #else
   #define X_MIN_POS 0
   #define Y_MIN_POS 0
@@ -2719,21 +2530,17 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-  #if ENABLED (GTA20)
+#if ENABLED (GTA20)
     #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
     #define ST7920_DELAY_1 DELAY_NS(200)
     #define ST7920_DELAY_2 DELAY_NS(200)
     #define ST7920_DELAY_3 DELAY_NS(200)
- #elif ENABLED (NEWMODEL) // Screen type & SDcard support
-  //#define REPRAP_DISCOUNT_SMART_CONTROLLER
-  //#define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
-  //#define ULTIPANEL
- #elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
+#elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
    #define YHCB2004
    #define ULTIPANEL
- #else //A10
+#else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
-  #endif
+#endif
 
 //
 // ReprapWorld Graphical LCD
