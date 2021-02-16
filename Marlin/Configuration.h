@@ -78,8 +78,7 @@
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 #define SHORT_BUILD_VERSION "Bugfix Build 503"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------------
-//START_HERE---------------------------------------------------------------------------------------------------------------------------------------------
+//START_HERE
 //-------------------------------
 //(Setup) enable 1 model/frame  | Note: Marlin no longer compiles with arduino ide.
 //-------------------------------
@@ -146,18 +145,11 @@
 //------------------------------
 
 //#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardward
-
-//Bed clip logic - use mesh inset or min probe edge to avoid clips not both
 #if ENABLED (BEDCLIPS)
-  #define MESH_INSET 10   // Move mesh in #mm from edge all sides
-  #if DISABLED (MESH_INSET) //Set per side
-    #define MESH_MIN_X 10 // left
-    #define MESH_MAX_X X_BED_SIZE - (10) // right
     #define MESH_MIN_Y 10 // back
     #define MESH_MAX_Y Y_BED_SIZE - (10) // front
-  #endif
-#else
-  #define MESH_INSET 0 //disabed no inset
+    //#define MESH_MIN_X 10 // left
+    //#define MESH_MAX_X X_BED_SIZE - (10) // right
 #endif
 
 //Motor direction logic
@@ -173,9 +165,9 @@
   //#define INVERTXYZ // Enable to force on
 #endif
 
-//--------------------------------------------
-// these are used to simplify macro creation |
-//--------------------------------------------
+//------------------------------------------
+// section used to simplify some variables |
+//------------------------------------------
 
 //Multiextruder
 #if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
@@ -277,9 +269,7 @@
     #define CYCLOPST
   #endif
 
-//END_START_HERE-----------------------------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------
+//END_START_HERE
 
 /**
  * *** VENDORS PLEASE READ ***
