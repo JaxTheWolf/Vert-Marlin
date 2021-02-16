@@ -100,7 +100,8 @@
 
 //#define MECREATOR2  // Mecreator2 & Variants
 
-//slated for removal once offically supported upstream and examples become available. 
+//Slated for removal once offically supported upstream and examples become available. 
+//These defines use the new YHCB2004 screen that is found on all of the new V4.1b boards pro and non pro version.
 //#define GTA10PRO    // A10 Pro Variants
 //#define GTA10MPRO   // A10M Pro Variants
 //#define GTA10CPRO   // A10C Pro Variants
