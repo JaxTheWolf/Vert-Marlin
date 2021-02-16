@@ -92,12 +92,6 @@
 //#define GTA10T      // A10T & Variants
 //#define GTA10CT     // A10CT & Variants
 
-//#define GTA10PRO    // A10 Pro Variants
-//#define GTA10MPRO   // A10M Pro Variants
-//#define GTA10CPRO   // A10C Pro Variants
-//#define GTA10TPRO   // A10T Pro Variants
-//#define GTA10CTPRO  // A10CT Pro Variants
-
 //#define GTA20       // A20 & Variants
 //#define GTA20M      // A20M & Variants
 //#define GTA20C      // A20C & Variants
@@ -105,6 +99,13 @@
 //#define GTA20CT     // A20CT & Variants
 
 //#define MECREATOR2  // Mecreator2 & Variants
+
+//slated for removal once offically supported upstream and examples become available. 
+//#define GTA10PRO    // A10 Pro Variants
+//#define GTA10MPRO   // A10M Pro Variants
+//#define GTA10CPRO   // A10C Pro Variants
+//#define GTA10TPRO   // A10T Pro Variants
+//#define GTA10CTPRO  // A10CT Pro Variants
 
 //----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
@@ -147,14 +148,15 @@
 
 //Bed clip logic - use mesh inset or min probe edge to avoid clips not both
 #if ENABLED (BEDCLIPS)
-  #define MESH_INSET 10   // Move mesh in #mm from edge
-  //Set per side
-  //#define MESH_MIN_X MESH_INSET // left
-  //#define MESH_MIN_Y MESH_INSET // back
-  //#define MESH_MAX_X X_BED_SIZE - (MESH_INSET) // right
-  //#define MESH_MAX_Y Y_BED_SIZE - (MESH_INSET) // front
+  #define MESH_INSET 10   // Move mesh in #mm from edge all sides
+  #if DISABLED (MESH_INSET) //Set per side
+    #define MESH_MIN_X 10 // left
+    #define MESH_MAX_X X_BED_SIZE - (10) // right
+    #define MESH_MIN_Y 10 // back
+    #define MESH_MAX_Y Y_BED_SIZE - (10) // front
+  #endif
 #else
-  #define MESH_INSET 0
+  #define MESH_INSET 0 //disabed no inset
 #endif
 
 //Motor direction logic
