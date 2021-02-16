@@ -2,6 +2,8 @@
 
 As A marlin dev much of my code is merged upstream to source after being tested here.
 
+This fork is intended for testing & machines i own, changes ongoing will reflect that as code is moved upstream.
+
 ## Upstream Merge History (Over 110k lines of code to date)
 
 Main Repo: https://github.com/MarlinFirmware/Marlin/commits/bugfix-2.0.x?author=vertabreak
