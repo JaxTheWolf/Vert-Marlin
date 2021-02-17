@@ -105,7 +105,7 @@
 //#define GTA10MPRO   // A10M Pro Variants
 //#define GTA10CPRO   // A10C Pro Variants
 //#define GTA10TPRO   // A10T Pro Variants
-#define GTA10CTPRO  // A10CT Pro Variants
+//#define GTA10CTPRO  // A10CT Pro Variants
 
 //----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
