@@ -105,7 +105,7 @@
 //#define GTA10MPRO   // A10M Pro Variants
 //#define GTA10CPRO   // A10C Pro Variants
 //#define GTA10TPRO   // A10T Pro Variants
-//#define GTA10CTPRO  // A10CT Pro Variants
+#define GTA10CTPRO  // A10CT Pro Variants
 
 //----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
@@ -2542,7 +2542,6 @@
     #define ST7920_DELAY_3 DELAY_NS(200)
 #elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
    #define YHCB2004
-   #define ULTIPANEL
 #else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #endif
