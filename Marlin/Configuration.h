@@ -101,8 +101,8 @@
 
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
 
-//#define GTA30       // A30  & Variants - no touchscreen support, for development only
-//#define GTE180      // E180 & Variants - no touchscreen support, for development only
+//#define GTA30       // A30  - no touchscreen, for development only
+//#define GTE180      // E180 - no touchscreen, for development only
 
 //---------------
 //Hardware Mods | Assuming you have not installed any additional mods you can skip this section & compile.
@@ -111,7 +111,6 @@
 
 //#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
-//#define PINDA       // Enable Pinda Probe
 
 //(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
 
@@ -612,9 +611,7 @@
   #define TEMP_SENSOR_BED 1
 #endif
 
-#if ENABLED (PINDA)
-  #define TEMP_SENSOR_PROBE 1
-#endif
+//#define TEMP_SENSOR_PROBE 1
 
 #define TEMP_SENSOR_CHAMBER 0
 
@@ -1227,11 +1224,8 @@
  *
  * Enable this option for a probe connected to the Z Min endstop pin.
  */
-#if ENABLED (PINDA)
-  #define USE_PROBE_FOR_Z_HOMING
-#else
-  #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
-#endif
+#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1294,7 +1288,7 @@
  */
 #if ENABLED (TOUCHPROBE)
   #define BLTOUCH
-#elif ANY (FMP, PINDA)
+#elif ENABLED (FMP)
   #define FIX_MOUNTED_PROBE
 #else
   #define PROBE_MANUALLY
@@ -1851,7 +1845,7 @@
   #define LEVEL_CORNERS_Z_HOP       5.0   // (mm) Z height of nozzle between leveling points
   #define LEVEL_CENTER_TOO              // Move to the center after the last corner
 
-  #if ANY (FMP, PINDA, TOUCHPROBE)
+  #if ANY (FIX_MOUNTED_PROBE, BLTOUCH)
     #define LEVEL_CORNERS_USE_PROBE
   #endif
 
