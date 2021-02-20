@@ -79,50 +79,41 @@
 #define SHORT_BUILD_VERSION "Bugfix Build 503"
 
 //START_HERE
-//-------------------------------
-//(Setup) enable 1 model/frame  | Note: Marlin no longer compiles with arduino ide.
-//-------------------------------
+//-------------------------
+//(Setup) enable 1 model  | Note: Marlin no longer compiles with arduino
+//-------------------------
 //GT2560 Boards - vscode: default_envs = mega2560 in platformio.ini
 
-//#define GTA10       // A10 & Variants
-//#define GTA10D      // A10D & Variants
-//#define GTA10M      // A10M & Variants
-//#define GTA10C      // A10C & Variants
-//#define GTA10T      // A10T & Variants
-//#define GTA10CT     // A10CT & Variants
+//#define GTA10       // A10
+//#define GTA10D      // A10D
+//#define GTA10M      // A10M
+//#define GTA10C      // A10C Alternative Cyclopes system for A10M
+//#define GTA10T      // A10T
+//#define GTA10CT     // A10CT Alternative Cyclopes system for A10T
 
-//#define GTA20       // A20 & Variants
-//#define GTA20M      // A20M & Variants
-//#define GTA20C      // A20C & Variants
-//#define GTA20T      // A20T & Variants
-//#define GTA20CT     // A20CT & Variants
+//#define GTA20       // A20
+//#define GTA20M      // A20M
+//#define GTA20C      // A20C Alternative Cyclopes system for A20M
+//#define GTA20T      // A20T
+//#define GTA20CT     // A20CT Alternative Cyclopes system for A20T
 
-//#define MECREATOR2  // Mecreator2 & Variants
+//#define MECREATOR2  // Mecreator2
 
-//Slated for removal once offically supported upstream and examples become available. 
-//These defines use the new YHCB2004 screen that is found on all of the new V4.1b boards pro and non pro version.
-//#define GTA10PRO    // A10 Pro Variants
-//#define GTA10MPRO   // A10M Pro Variants
-//#define GTA10CPRO   // A10C Pro Variants
-//#define GTA10TPRO   // A10T Pro Variants
-//#define GTA10CTPRO  // A10CT Pro Variants
-
-//----------------------------------------------------------------------------------------------------
 //GTM32 Boards - vscode: default_envs = STM32F103VE_GTM32 in platformio.ini
 
 //#define GTA30       // A30  & Variants - no touchscreen support, for development only
 //#define GTE180      // E180 & Variants - no touchscreen support, for development only
 
 //---------------
-//Hardware Mods | Assuming you have not installed any additional mods you can skip everything in this section.
+//Hardware Mods | Assuming you have not installed any additional mods you can skip this section & compile.
 //---------------
-//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support yet
+//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support
 
 //#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
 //#define PINDA       // Enable Pinda Probe
 
-//(Driver Mods) enable 1 (MOD) driver type or none for (Stock/A4988)
+//(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
 
 //#define A5984      // Enable A5984   all drivers
 //#define DRV8825    // Enable DRV8825 all drivers
@@ -141,33 +132,37 @@
 //#define TMC5160S   // Enable TMC5160 Standalone all drivers
 
 //------------------------------
-//Optional settings & features | Note 1kb of ram required for stability.
+//Optional settings & features | Note 1kb of free ram required for stability.
 //------------------------------
 
-//#define BEDCLIPS         // Enable to avoid bed clips (manual or probe) - Only If you have this hardward
-#if ENABLED (BEDCLIPS)
+//#define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
+//#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
+#if ENABLED (BEDCLIPSFB)
+    //Front & Back Clips
     #define MESH_MIN_Y 10 // back
     #define MESH_MAX_Y Y_BED_SIZE - (10) // front
-    //#define MESH_MIN_X 10 // left
-    //#define MESH_MAX_X X_BED_SIZE - (10) // right
+#elif ENABLED (BEDCLIPSLR)
+    //Left & Right Clips 
+    #define MESH_MIN_X 10 // left
+    #define MESH_MAX_X X_BED_SIZE - (10) // right
 #endif
 
 //Motor direction logic
 #if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
-  #define INVERTE     // (E direction False) comment out to disabe if wrong direction for (E direction true) - Geared exturders invert E (stock)
+  #define INVERTE     // Disable to force off
 #else
-  //#define INVERTE  // Enable to force on if the above condition is not matched.
+  //#define INVERTE  // Enable to force on
 #endif
 
 #if ENABLED (TMCCHIPS)
-  #define INVERTXYZ   // Invert XYZ direction disable if wrong direction.
+  #define INVERTXYZ   // Disable to force off
 #else
   //#define INVERTXYZ // Enable to force on
 #endif
 
-//------------------------------------------
-// section used to simplify some variables |
-//------------------------------------------
+//-------------------------------------
+// section used to simplify variables |
+//-------------------------------------
 
 //Multiextruder
 #if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
@@ -189,16 +184,11 @@
   #define STM32
 #endif
 
-//256kb boards models
-#if ANY(GTA10, GTA20, MECREATOR2)
-  #define AT2560
-#endif
-
-//#define MIX      // Enable Mixing     2 in 1 - 1 Virtual Extruder
-//#define CYCLOPS  // Enable Cyclops    2 in 1 - 2 Physical Extruder
-//#define MIXT     // Enable Mixing T   3 in 1 - 1 Virtual Extruder
-//#define CYCLOPST // Enable Cyclops T  3 in 1 - 3 Physical Extruder
-//#define DUALEX   // 2 Extruders       2 in 2 - 2 Physical Extruder & 2 Nozzles
+//#define MIX      // Mixing       2 in 1 - 1 Virtual Extruder
+//#define CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder
+//#define MIXT     // Mixing T     3 in 1 - 1 Virtual Extruder
+//#define CYCLOPST // Cyclops T    3 in 1 - 3 Physical Extruder
+//#define DUALEX   // 2 Extruders  2 in 2 - 2 Physical Extruder & 2 Nozzles
 
 #if ENABLED (GTA10D)
     #define GTA10
@@ -208,30 +198,6 @@
   #if ENABLED (GTA10M)
     #define GTA10
     #define MIX
-  #endif
-
-  #if ENABLED (GTA10PRO)
-    #define GTA10
-  #endif
-
- #if ENABLED (GTA10MPRO)
-    #define GTA10
-    #define MIX
-  #endif
-
- #if ENABLED (GTA10CPRO)
-    #define GTA10
-    #define CYCLOPS
-  #endif
-
- #if ENABLED (GTA10TPRO)
-    #define GTA10
-    #define MIXT
-  #endif
-
- #if ENABLED (GTA10CTPRO)
-    #define GTA10
-    #define CYCLOPST
   #endif
 
   #if ENABLED (GTA10T)
@@ -304,9 +270,6 @@
 #if ENABLED (STM32)
   #define SERIAL_PORT 1
   //#define SERIAL_PORT_2 2
-#elif ENABLED (AT2560)
-  #define SERIAL_PORT 0
-  //#define SERIAL_PORT_2 3
 #else
   #define SERIAL_PORT 0
   //#define SERIAL_PORT_2 -1
@@ -2540,8 +2503,6 @@
     #define ST7920_DELAY_1 DELAY_NS(200)
     #define ST7920_DELAY_2 DELAY_NS(200)
     #define ST7920_DELAY_3 DELAY_NS(200)
-#elif ANY (GTA10PRO, GTA10MPRO, GTA10CPRO, GTA10TPRO, GTA10CTPRO) // A10 Pro
-   #define YHCB2004
 #else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #endif

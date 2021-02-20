@@ -499,7 +499,7 @@
 /**
  * M355 Case Light on-off / brightness
  */
-#if DISABLED (STM32)
+#if ENABLED (MECREATOR2)
   #define CASE_LIGHT_ENABLE
 #if ENABLED(CASE_LIGHT_ENABLE)
   //#define CASE_LIGHT_PIN 6                    // Override the default pin if needed
@@ -653,10 +653,9 @@
 // @section homing
 
 // Homing hits each endstop, retracts by these distances, then does a slower bump.
-#define HOMING_BUMP_MM      { 5, 5, 5 }       // (mm) Backoff from endstops after first bump
+#define HOMING_BUMP_MM      { 5, 5, 5 }  // (mm) Backoff from endstops after first bump
 #define HOMING_BUMP_DIVISOR { 5, 5, 1 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 #define QUICK_HOME                       // If homing includes X and Y, do a diagonal move initially
-//#define HOMING_BACKOFF_POST_MM { X_MIN_POS, Y_MIN_POS, (Z_MIN_POS + 1)}  // (mm) Move away from the endstops after homing
 
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
@@ -2170,7 +2169,7 @@
   #if ENABLED (DIRECTDRIVE)
     #define ADVANCED_PAUSE_PURGE_LENGTH         5  // (mm) Length to extrude after loading.
   #else
-  #define ADVANCED_PAUSE_PURGE_LENGTH         25  // (mm) Length to extrude after loading.
+    #define ADVANCED_PAUSE_PURGE_LENGTH         25  // (mm) Length to extrude after loading.
   #endif
                                                   //   Set to 0 for manual extrusion.
                                                   //   Filament can be extruded repeatedly from the Filament Change menu
@@ -2192,7 +2191,7 @@
   #define HOME_BEFORE_FILAMENT_CHANGE           // Ensure homing has been completed prior to parking for filament change
 
   #define FILAMENT_LOAD_UNLOAD_GCODES           // Add M701/M702 Load/Unload G-codes, plus Load/Unload in the LCD Prepare menu.
-  //#define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
+  #define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
 #endif
 
 // @section tmc
@@ -3386,10 +3385,10 @@
   #define USER_GCODE_13 "G4 S30"
 
   #define USER_DESC_14 "Auto Cold Pull"
-  #define USER_GCODE_14 "G28\nM83\nG92 E0.00\nG21\nG1 X125 Y105 Z30\nM109 S250\nG1 E10.00 F6.5\nM109 S95\nM18 E\nM0 Pull your filament out\nM106 S0\nM109 S0"
+  #define USER_GCODE_14 "G28\nM83\nG92 E0.00\nG21\nG1 X100 Y100 Z30\nM109 S200\nG1 E10.00 F6.5\nM109 S95\nM18 E\nM0 Pull your filament out\nM106 S0\nM109 S0"
 
   #define USER_DESC_15 "Nozzle Change"
-  #define USER_GCODE_15 "M104 S275\nM117 Setting Nozzle to 275C\nG4 s3\nM0 Click to continue"
+  #define USER_GCODE_15 "M104 S2500\nM117 Setting Nozzle to 200C\nG4 s3\nM0 Click to continue"
 
   #define USER_DESC_16 "Reset EEPROM"
   #define USER_GCODE_16 "M502\nM500\nM500\nM117 EEPROM values restored\nG4 S3\nM0 Click to continue"
@@ -3451,10 +3450,10 @@
   #define USER_GCODE_18 "M851 Z0.00\nM500\nM117 Z Probe Offset Zeroed\nG4 S3\nM0 Click to continue"
 
   #define USER_DESC_19 "Auto Cold Pull"
-  #define USER_GCODE_19 "G28\nM83\nG92 E0.00\nG21\nG1 X125 Y105 Z30\nM109 S250\nG1 E10.00 F6.5\nM109 S95\nM18 E\nM0 Pull your filament out\nM106 S0\nM109 S0"
+  #define USER_GCODE_19 "G28\nM83\nG92 E0.00\nG21\nG1 X100 Y100 Z30\nM109 S200\nG1 E10.00 F6.5\nM109 S95\nM18 E\nM0 Pull your filament out\nM106 S0\nM109 S0"
 
   #define USER_DESC_20 "Nozzle Change"
-  #define USER_GCODE_20 "M104 S275\nM117 Setting Nozzle to 275C\nG4 s3\nM0 Click to continue"
+  #define USER_GCODE_20 "M104 S200\nM117 Setting Nozzle to 200C\nG4 s3\nM0 Click to continue"
 
   #define USER_DESC_21 "Reset EEPROM"
   #define USER_GCODE_21 "M502\nM500\nM500\nM117 EEPROM values restored\nG4 S3\nM0 Click to continue"
