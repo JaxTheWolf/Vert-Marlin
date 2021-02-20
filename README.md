@@ -10,9 +10,7 @@ Main Repo: https://github.com/MarlinFirmware/Marlin/commits/bugfix-2.0.x?author=
 
 Config Repo: https://github.com/MarlinFirmware/Configurations/commits?author=vertabreak
 
-## Video guide how to compile
-Guide based on B502: https://youtu.be/2uMUivczmOc
-
 ## Should you wish to toss a few bucks my way the sponsor button will take you to options to do so.
 
-Forking a repo to maintain the complete history of commit credits to all contributors is the proper way to make a public copy of a repo not for your own personal use. For situations where forking is not a option siting the source to give credit where credit is due may also be acceptable.
+Forking a repo to maintain the complete history of commit credits to all contributors is the proper way to make a public copy of a repo. 
+For situations where forking is not a option listing the source to give credit where credit is due may also be acceptable.
