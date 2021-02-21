@@ -84,6 +84,7 @@
 //-------------------------
 //GT2560 Boards - vscode: default_envs = mega2560 in platformio.ini
 
+#define GTA10PRO
 //#define GTA10       // A10
 //#define GTA10D      // A10D
 //#define GTA10M      // A10M
@@ -179,7 +180,7 @@
 //---------------
 //(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support
 
-//#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
+#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
 
 //(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
@@ -209,16 +210,16 @@
 //Optional settings & features | Note 1kb of free ram required for stability.
 //------------------------------
 
-//#define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
-//#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
+#define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
+#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
 #if ENABLED (BEDCLIPSFB)
     //Front & Back Clips
-    #define MESH_MIN_Y 10 // back
-    #define MESH_MAX_Y Y_BED_SIZE - (10) // front
+    #define MESH_MIN_Y 15 // back
+    #define MESH_MAX_Y Y_BED_SIZE - (15) // front
 #elif ENABLED (BEDCLIPSLR)
     //Left & Right Clips 
-    #define MESH_MIN_X 10 // left
-    #define MESH_MAX_X X_BED_SIZE - (10) // right
+    #define MESH_MIN_X 15 // left
+    #define MESH_MAX_X X_BED_SIZE - (15) // right
 #endif
 
 //Motor direction logic
@@ -233,6 +234,8 @@
 #else
   //#define INVERTXYZ // Enable to force on
 #endif
+
+#define ARC_SUPPORT
 
 //END_START_HERE
 
@@ -297,7 +300,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-#if ENABLED (GTA10)
+#if ANY (GTA10, GTA10PRO)
   #define MOTHERBOARD BOARD_GT2560_V3
 #elif ENABLED (GTA20)
   #define MOTHERBOARD BOARD_GT2560_V3_A20
@@ -1208,7 +1211,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1389,6 +1392,8 @@
   #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ
 #elif ENABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
   #define NOZZLE_TO_PROBE_OFFSET { -40, 0, 0 }  // Nozzle To Probe offset XYZ A10M+T/A20M+T - this is what it is on my test machines yours could differ
+#elif DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ENABLED (GTA10PRO)
+  #define NOZZLE_TO_PROBE_OFFSET { -37, 0, 0 } // Nozzle To Probe offset XYZ A10 Pro - this is what it is on my test machines yours could differ
 #else
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
 #endif
@@ -1620,14 +1625,20 @@
   #define X_BED_SIZE 230
   #define Y_BED_SIZE 230
   #define Z_MAX_POS 250
+#elif ENABLED (GTA10PRO)
+  #define X_BED_SIZE 220
+  #define Y_BED_SIZE 220
+  #define Z_MAX_POS 260
 #endif
-
 #if  ANY (GTA10, GTA20, GTA30) && ANY(MIXT, CYCLOPST, CYCLOPST)
   #define X_MIN_POS -1   //- this is what it is on my test machines yours could differ
   #define Y_MIN_POS -7   //- this is what it is on my test machines yours could differ
 #elif ANY (GTA10, GTA20, GTA30)
   #define X_MIN_POS -10  //- this is what it is on my test machines yours could differ
   #define Y_MIN_POS -5   //- this is what it is on my test machines yours could differ
+#elif ENABLED (GTA10PRO)
+  #define X_MIN_POS -7
+  #define Y_MIN_POS -8
 #else
   #define X_MIN_POS 0
   #define Y_MIN_POS 0
@@ -1768,7 +1779,7 @@
  */
 #define AUTO_BED_LEVELING_UBL
 
-#define GRIDSIZE 5   // Mesh grid size adjust as needed
+#define GRIDSIZE 6   // Mesh grid size adjust as needed
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -1781,10 +1792,10 @@
 /**
  * Auto-leveling needs preheating
  */
-//#define PREHEAT_BEFORE_LEVELING
+#define PREHEAT_BEFORE_LEVELING
 #if ENABLED(PREHEAT_BEFORE_LEVELING)
   #define LEVELING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
-  #define LEVELING_BED_TEMP     50
+  #define LEVELING_BED_TEMP     60
 #endif
 
 /**
@@ -2124,7 +2135,7 @@
  *   M76 - Pause the print job timer
  *   M77 - Stop the print job timer
  */
-#define PRINTJOB_TIMER_AUTOSTART
+//#define PRINTJOB_TIMER_AUTOSTART
 
 /**
  * Print Counter
@@ -2497,6 +2508,8 @@
     #define ST7920_DELAY_1 DELAY_NS(200)
     #define ST7920_DELAY_2 DELAY_NS(200)
     #define ST7920_DELAY_3 DELAY_NS(200)
+#elif ENABLED (GTA10PRO)
+  	#define YHCB2004
 #else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #endif
