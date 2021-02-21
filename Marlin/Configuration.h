@@ -104,84 +104,9 @@
 //#define GTA30       // A30  - no touchscreen, for development only
 //#define GTE180      // E180 - no touchscreen, for development only
 
-//---------------
-//Hardware Mods | Assuming you have not installed any additional mods you can skip this section & compile.
-//---------------
-//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support
-
-//#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
-//#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
-
-//(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
-
-//#define A5984      // Enable A5984   all drivers
-//#define DRV8825    // Enable DRV8825 all drivers
-//#define LV8729     // Enable LV8729  all drivers
-//#define L6470      // Enable L6470   all drivers
-//#define TB6560     // Enable TB6560  all drivers
-//#define TB6600     // Enable TB6600  all drivers
-
-//#define TMC2208S   // Enable TMC2208 Standalone all drivers
-//#define TMC2209S   // Enable TMC2209 Standalone all drivers
-//#define TMC2130S   // Enable TMC2130 Standalone all drivers
-//#define TMC2160S   // Enable TMC2160 Standalone all drivers
-//#define TMC26XS    // Enable TMC226X Standalone all drivers
-//#define TMC2660S   // Enable TMC2660 Standalone all drivers
-//#define TMC5130S   // Enable TMC5130 Standalone all drivers
-//#define TMC5160S   // Enable TMC5160 Standalone all drivers
-
-//------------------------------
-//Optional settings & features | Note 1kb of free ram required for stability.
-//------------------------------
-
-//#define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
-//#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
-#if ENABLED (BEDCLIPSFB)
-    //Front & Back Clips
-    #define MESH_MIN_Y 10 // back
-    #define MESH_MAX_Y Y_BED_SIZE - (10) // front
-#elif ENABLED (BEDCLIPSLR)
-    //Left & Right Clips 
-    #define MESH_MIN_X 10 // left
-    #define MESH_MAX_X X_BED_SIZE - (10) // right
-#endif
-
-//Motor direction logic
-#if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
-  #define INVERTE     // Disable to force off
-#else
-  //#define INVERTE  // Enable to force on
-#endif
-
-#if ENABLED (TMCCHIPS)
-  #define INVERTXYZ   // Disable to force off
-#else
-  //#define INVERTXYZ // Enable to force on
-#endif
-
 //-------------------------------------
 // section used to simplify variables |
 //-------------------------------------
-
-//Multiextruder
-#if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
-  #define MULTIEXTRUDER
-#endif
-
-//TMC drivers
-#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S)
-  #define TMCCHIPS
-#endif
-
-//Models with direct drive
-#if ENABLED (MECREATOR2)
-  #define DIRECTDRIVE
-#endif
-
-//32bit boards models
-#if ANY(GTA30, GTE180)
-  #define STM32
-#endif
 
 //#define MIX      // Mixing       2 in 1 - 1 Virtual Extruder
 //#define CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder
@@ -233,6 +158,81 @@
     #define GTA20
     #define CYCLOPST
   #endif
+
+//Multiextruder
+#if ANY(MIX, MIXT, CYCLOPS, CYCLOPST, DUALEX)
+  #define MULTIEXTRUDER
+#endif
+
+//Models with direct drive
+#if ENABLED (MECREATOR2)
+  #define DIRECTDRIVE
+#endif
+
+//32bit boards models
+#if ANY(GTA30, GTE180)
+  #define STM32
+#endif
+
+//---------------
+//Hardware Mods | Assuming you have not installed any additional mods you can skip this section & compile.
+//---------------
+//(Probe Mod) enable 1 (Mod) probe type none = manual (stock) - No GTM32 probe support
+
+//#define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
+//#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
+
+//(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
+
+//#define A5984      // Enable A5984   all drivers
+//#define DRV8825    // Enable DRV8825 all drivers
+//#define LV8729     // Enable LV8729  all drivers
+//#define L6470      // Enable L6470   all drivers
+//#define TB6560     // Enable TB6560  all drivers
+//#define TB6600     // Enable TB6600  all drivers
+
+//#define TMC2208S   // Enable TMC2208 Standalone all drivers
+//#define TMC2209S   // Enable TMC2209 Standalone all drivers
+//#define TMC2130S   // Enable TMC2130 Standalone all drivers
+//#define TMC2160S   // Enable TMC2160 Standalone all drivers
+//#define TMC26XS    // Enable TMC226X Standalone all drivers
+//#define TMC2660S   // Enable TMC2660 Standalone all drivers
+//#define TMC5130S   // Enable TMC5130 Standalone all drivers
+//#define TMC5160S   // Enable TMC5160 Standalone all drivers
+
+//TMC drivers
+#if ANY(TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S)
+  #define TMCCHIPS
+#endif
+
+//------------------------------
+//Optional settings & features | Note 1kb of free ram required for stability.
+//------------------------------
+
+//#define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
+//#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
+#if ENABLED (BEDCLIPSFB)
+    //Front & Back Clips
+    #define MESH_MIN_Y 10 // back
+    #define MESH_MAX_Y Y_BED_SIZE - (10) // front
+#elif ENABLED (BEDCLIPSLR)
+    //Left & Right Clips 
+    #define MESH_MIN_X 10 // left
+    #define MESH_MAX_X X_BED_SIZE - (10) // right
+#endif
+
+//Motor direction logic
+#if ENABLED (TMCCHIPS) && DISABLED (MULTIEXTRUDER) || DISABLED (TMCCHIPS) && ENABLED (MULTIEXTRUDER)
+  #define INVERTE     // Disable to force off
+#else
+  //#define INVERTE  // Enable to force on
+#endif
+
+#if ENABLED (TMCCHIPS)
+  #define INVERTXYZ   // Disable to force off
+#else
+  //#define INVERTXYZ // Enable to force on
+#endif
 
 //END_START_HERE
 
