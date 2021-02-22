@@ -211,11 +211,14 @@
 //------------------------------
 
 #define BEDCLIPSFB         // enable if you have bed clips installed on front & back 
-#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
+//#define BEDCLIPSLR         // enable if you have bed clips installed on right & left
+#define BED_CLIP_MARGIN 13
+#define LCD_SET_PROGRESS_MANUALLY
+
 #if ENABLED (BEDCLIPSFB)
     //Front & Back Clips
-    #define MESH_MIN_Y 15 // back
-    #define MESH_MAX_Y Y_BED_SIZE - (15) // front
+    #define MESH_MIN_Y BED_CLIP_MARGIN // back
+    #define MESH_MAX_Y Y_BED_SIZE - (BED_CLIP_MARGIN) // front
 #elif ENABLED (BEDCLIPSLR)
     //Left & Right Clips 
     #define MESH_MIN_X 15 // left
@@ -1399,7 +1402,7 @@
 #endif
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 20*60
+#define XY_PROBE_SPEED 30*60
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST Z_PROBE_SPEED_SLOW
@@ -1708,7 +1711,7 @@
    #endif
    #endif
 
-   #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
+   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
    #define FIL_RUNOUT_STATE  HIGH     // set to high to invert the logic of the sensors. some geeetech filament sensors are inverted if trigger with filament loaded invert.
    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
 
@@ -1779,7 +1782,7 @@
  */
 #define AUTO_BED_LEVELING_UBL
 
-#define GRIDSIZE 6   // Mesh grid size adjust as needed
+#define GRIDSIZE 13   // Mesh grid size adjust as needed
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -1823,15 +1826,15 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
-    #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for G26.
+    #define MESH_TEST_LAYER_HEIGHT   0.3  // (mm) Default layer height for G26.
     #define MESH_TEST_HOTEND_TEMP  205    // (°C) Default nozzle temperature for G26.
     #define MESH_TEST_BED_TEMP      60    // (°C) Default bed temperature for G26.
     #define G26_XY_FEEDRATE         20    // (mm/s) Feedrate for G26 XY moves.
     #define G26_XY_FEEDRATE_TRAVEL 100    // (mm/s) Feedrate for G26 XY travel moves.
-    #define G26_RETRACT_MULTIPLIER   1.0  // G26 Q (retraction) used by default between mesh test elements.
+    #define G26_RETRACT_MULTIPLIER   3.0  // G26 Q (retraction) used by default between mesh test elements.
   #endif
 #endif
 
@@ -1921,7 +1924,7 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_MM_M { (20*60), (20*60), (4*60) }
+#define HOMING_FEEDRATE_MM_M { (35*60), (35*60), (4*60) }
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
