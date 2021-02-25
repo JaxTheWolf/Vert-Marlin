@@ -84,8 +84,7 @@
 //-------------------------
 //GT2560 Boards - vscode: default_envs = mega2560 in platformio.ini
 
-#define GTA10PRO
-//#define GTA10       // A10
+#define GTA10       // A10
 //#define GTA10D      // A10D
 //#define GTA10M      // A10M
 //#define GTA10C      // A10C Alternative Cyclopes system for A10M
@@ -109,11 +108,7 @@
 // section used to simplify variables |
 //-------------------------------------
 
-//#define MIX      // Mixing       2 in 1 - 1 Virtual Extruder
-//#define CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder
-//#define MIXT     // Mixing T     3 in 1 - 1 Virtual Extruder
-//#define CYCLOPST // Cyclops T    3 in 1 - 3 Physical Extruder
-//#define DUALEX   // 2 Extruders  2 in 2 - 2 Physical Extruder & 2 Nozzles
+//#define MIX      // Mixing       2 in 1 - 1 Virtual Extruder //#define CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder //#define MIXT     // Mixing T     3 in 1 - 1 Virtual Extruder//#define CYCLOPST // Cyclops T    3 in 1 - 3 Physical Extruder //#define DUALEX   // 2 Extruders  2 in 2 - 2 Physical Extruder & 2 Nozzles
 
 #if ENABLED (GTA10D)
     #define GTA10
@@ -183,6 +178,11 @@
 #define TOUCHPROBE  // Enable Touch Probe (Bltouch / 3Dtouch)
 //#define FMP         // Enable Fixed Mounted Probe (Capacitive / Inductive)
 
+//(LCD Mod)
+
+#define YHCB2004LCD // Override default LCD with THCB2004 found on new gt2560 V4.1 boards
+//#define FULLGFXLCD  // Override default LCD with FUllGFXLCD found on A20 and its variants
+
 //(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
 
 //#define A5984      // Enable A5984   all drivers
@@ -221,8 +221,8 @@
     #define MESH_MAX_Y Y_BED_SIZE - (BED_CLIP_MARGIN) // front
 #elif ENABLED (BEDCLIPSLR)
     //Left & Right Clips 
-    #define MESH_MIN_X 15 // left
-    #define MESH_MAX_X X_BED_SIZE - (15) // right
+    #define MESH_MIN_X BED_CLIP_MARGIN // left
+    #define MESH_MAX_X X_BED_SIZE - (BED_CLIP_MARGIN) // right
 #endif
 
 //Motor direction logic
@@ -303,7 +303,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-#if ANY (GTA10, GTA10PRO)
+#if ENABLED (GTA10)
   #define MOTHERBOARD BOARD_GT2560_V3
 #elif ENABLED (GTA20)
   #define MOTHERBOARD BOARD_GT2560_V3_A20
@@ -644,6 +644,10 @@
 #define TEMP_BED_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target
 
+#define TEMP_CHAMBER_RESIDENCY_TIME 10  // (seconds) Time to wait for chamber to "settle" in M191
+#define TEMP_CHAMBER_WINDOW      1  // (°C) Temperature proximity for the "temperature reached" timer
+#define TEMP_CHAMBER_HYSTERESIS  3  // (°C) Temperature proximity considered "close enough" to the target
+
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
 #define MINTEMPALL 0
@@ -656,6 +660,7 @@
 #define HEATER_6_MINTEMP   MINTEMPALL
 #define HEATER_7_MINTEMP   MINTEMPALL
 #define BED_MINTEMP        MINTEMPALL
+#define CHAMBER_MINTEMP    MINTEMPALL
 
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
@@ -671,6 +676,7 @@
 #define HEATER_6_MAXTEMP (MAXHOTENDTEMP + 15)
 #define HEATER_7_MAXTEMP (MAXHOTENDTEMP + 15)
 #define BED_MAXTEMP      (MAXHOTENDTEMP / 2 - 10)
+#define CHAMBER_MAXTEMP  (MAXHOTENDTEMP / 4 - 5)
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -770,7 +776,52 @@
   // FIND YOUR OWN: "M303 U1 E-1 S90 C8" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
 
-#if EITHER(PIDTEMP, PIDTEMPBED)
+//===========================================================================
+//==================== PID > Chamber Temperature Control ====================
+//===========================================================================
+
+/**
+ * PID Chamber Heating
+ *
+ * If this option is enabled set PID constants below.
+ * If this option is disabled, bang-bang will be used and CHAMBER_LIMIT_SWITCHING will enable
+ * hysteresis.
+ *
+ * The PID frequency will be the same as the extruder PWM.
+ * If PID_dT is the default, and correct for the hardware/configuration, that means 7.689Hz,
+ * which is fine for driving a square wave into a resistive load and does not significantly
+ * impact FET heating. This also works fine on a Fotek SSR-10DA Solid State Relay into a 200W
+ * heater. If your configuration is significantly different than this and you don't understand
+ * the issues involved, don't use chamber PID until someone else verifies that your hardware works.
+ */
+//#define PIDTEMPCHAMBER
+
+//#define CHAMBER_LIMIT_SWITCHING
+
+/**
+ * Max Chamber Power
+ * Applies to all forms of chamber control (PID, bang-bang, and bang-bang with hysteresis).
+ * When set to any value below 255, enables a form of PWM to the chamber heater that acts like a divider
+ * so don't use it unless you are OK with PWM on your heater. (See the comment on enabling PIDTEMPCHAMBER)
+ */
+#define MAX_CHAMBER_POWER 255 // limits duty cycle to chamber heater; 255=full current
+
+#if ENABLED(PIDTEMPCHAMBER)
+  #define MIN_CHAMBER_POWER 0
+  //#define PID_CHAMBER_DEBUG // Sends debug data to the serial port.
+
+  // Lasko "MyHeat Personal Heater" (200w) modified with a Fotek SSR-10DA to control only the heating element
+  // and placed inside the small Creality printer enclosure tent.
+  //
+  #define DEFAULT_chamberKp 37.04
+  #define DEFAULT_chamberKi 1.40
+  #define DEFAULT_chamberKd 655.17
+  // M309 P37.04 I1.04 D655.17
+
+  // FIND YOUR OWN: "M303 E-2 C8 S50" to run autotune on the chamber at 50 degreesC for 8 cycles.
+#endif // PIDTEMPCHAMBER
+
+#if ANY(PIDTEMP, PIDTEMPBED, PIDTEMPCHAMBER)
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
@@ -1391,12 +1442,12 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#if DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
-  #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ
+#if DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ENABLED (YHCB2004LCD) && ENABLED (GTA10)
+  #define NOZZLE_TO_PROBE_OFFSET { -37, 0, 0 } // Nozzle To Probe offset XYZ A10 Pro - this is what it is on my test machines yours could differ
 #elif ENABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
   #define NOZZLE_TO_PROBE_OFFSET { -40, 0, 0 }  // Nozzle To Probe offset XYZ A10M+T/A20M+T - this is what it is on my test machines yours could differ
-#elif DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ENABLED (GTA10PRO)
-  #define NOZZLE_TO_PROBE_OFFSET { -37, 0, 0 } // Nozzle To Probe offset XYZ A10 Pro - this is what it is on my test machines yours could differ
+#elif DISABLED (MULTIEXTRUDER) && ANY(TOUCHPROBE, FMP) && ANY (GTA10, GTA20)
+  #define NOZZLE_TO_PROBE_OFFSET { -38, 5, 0 } // Nozzle To Probe offset XYZ A10/A20 - this is what it is on my test machines yours could differ
 #else
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }
 #endif
@@ -1608,9 +1659,9 @@
 // @section machine
 
 // Max XYZ Travel Disatnce from 0 in MM before hitting the end.
-#if ENABLED (GTA20)
-  #define X_BED_SIZE 255
-  #define Y_BED_SIZE 255
+#if ENABLED (YHCB2004LCD) && ENABLED (GTA10)
+  #define X_BED_SIZE 220
+  #define Y_BED_SIZE 220
   #define Z_MAX_POS 250
 #elif ENABLED (GTA30)
   #define X_BED_SIZE 320
@@ -1628,20 +1679,20 @@
   #define X_BED_SIZE 230
   #define Y_BED_SIZE 230
   #define Z_MAX_POS 250
-#elif ENABLED (GTA10PRO)
-  #define X_BED_SIZE 220
-  #define Y_BED_SIZE 220
-  #define Z_MAX_POS 260
+#elif ENABLED (GTA20)
+  #define X_BED_SIZE 255
+  #define Y_BED_SIZE 255
+  #define Z_MAX_POS 250
 #endif
-#if  ANY (GTA10, GTA20, GTA30) && ANY(MIXT, CYCLOPST, CYCLOPST)
-  #define X_MIN_POS -1   //- this is what it is on my test machines yours could differ
-  #define Y_MIN_POS -7   //- this is what it is on my test machines yours could differ
+#if ENABLED (YHCB2004LCD) && ENABLED (GTA10)
+  #define X_MIN_POS -7
+  #define Y_MIN_POS -8
 #elif ANY (GTA10, GTA20, GTA30)
   #define X_MIN_POS -10  //- this is what it is on my test machines yours could differ
   #define Y_MIN_POS -5   //- this is what it is on my test machines yours could differ
-#elif ENABLED (GTA10PRO)
-  #define X_MIN_POS -7
-  #define Y_MIN_POS -8
+#elif  ANY (GTA10, GTA20, GTA30) && ANY(MIXT, CYCLOPST, CYCLOPST)
+  #define X_MIN_POS -1   //- this is what it is on my test machines yours could differ
+  #define Y_MIN_POS -7   //- this is what it is on my test machines yours could differ
 #else
   #define X_MIN_POS 0
   #define Y_MIN_POS 0
@@ -1711,7 +1762,7 @@
    #endif
    #endif
 
-   #define FIL_RUNOUT_ENABLED_DEFAULT true // Enable the sensor on startup. Override with M412 followed by M500.
+   #define FIL_RUNOUT_ENABLED_DEFAULT false // Enable the sensor on startup. Override with M412 followed by M500.
    #define FIL_RUNOUT_STATE  HIGH     // set to high to invert the logic of the sensors. some geeetech filament sensors are inverted if trigger with filament loaded invert.
    #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
 
@@ -2019,13 +2070,15 @@
 // Preheat Constants - Up to 5 are supported without changes
 //
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND  200
+#define PREHEAT_1_TEMP_HOTEND  205
 #define PREHEAT_1_TEMP_BED      60
+#define PREHEAT_1_TEMP_CHAMBER  35
 #define PREHEAT_1_FAN_SPEED      0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG"
 #define PREHEAT_2_TEMP_HOTEND  250
 #define PREHEAT_2_TEMP_BED      70
+#define PREHEAT_2_TEMP_CHAMBER  35
 #define PREHEAT_2_FAN_SPEED      0 // Value from 0 to 255
 
 /**
@@ -2506,13 +2559,13 @@
 // RepRapDiscount FULL GRAPHIC Smart Controller
 // https://reprap.org/wiki/RepRapDiscount_Full_Graphic_Smart_Controller
 //
-#if ENABLED (GTA20)
+#if ENABLED (GTA20) || ENABLED (FULLGFXLCD)
     #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
     #define ST7920_DELAY_1 DELAY_NS(200)
     #define ST7920_DELAY_2 DELAY_NS(200)
     #define ST7920_DELAY_3 DELAY_NS(200)
-#elif ENABLED (GTA10PRO)
-  	#define YHCB2004
+#elif ENABLED (YHCB2004LCD)
+  #define YHCB2004
 #else //A10
   #define REPRAP_DISCOUNT_SMART_CONTROLLER
 #endif
