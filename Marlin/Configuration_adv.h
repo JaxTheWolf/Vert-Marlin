@@ -151,12 +151,9 @@
 #endif
 
 #if TEMP_SENSOR_CHAMBER
-  // Make sure you define where your heater is connected, the following works on a BTT SKR 1.4 Turbo
-  // using the secondary tool heater output. (FAN1 by default).
-  //#define FAN1_PIN                   -1   // Remove the fan signal on pin P2_04 (SKR 1.4 Turbo specific)
-  //#define HEATER_CHAMBER_PIN      P2_04   // Chamber heater on/off pin (HE1 connector on SKR 1.4 Turbo)
-
+  //#define HEATER_CHAMBER_PIN      P2_04   // Required heater on/off pin (example: SKR 1.4 Turbo HE1 plug)
   //#define HEATER_CHAMBER_INVERTING false
+  //#define FAN1_PIN                   -1   // Remove the fan signal on pin P2_04 (example: SKR 1.4 Turbo HE1 plug)
 
   //#define CHAMBER_FAN               // Enable a fan on the chamber
   #if ENABLED(CHAMBER_FAN)
@@ -376,7 +373,7 @@
  */
 #define HOTEND_IDLE_TIMEOUT
 #if ENABLED(HOTEND_IDLE_TIMEOUT)
-  #define HOTEND_IDLE_TIMEOUT_SEC (10*60)    // (seconds) Time without extruder movement to trigger protection
+  #define HOTEND_IDLE_TIMEOUT_SEC (30*60)    // (seconds) Time without extruder movement to trigger protection
   #define HOTEND_IDLE_MIN_TRIGGER   150     // (°C) Minimum temperature to enable hotend protection
   #define HOTEND_IDLE_NOZZLE_TARGET   0     // (°C) Safe temperature for the nozzle after timeout
   #define HOTEND_IDLE_BED_TARGET      0     // (°C) Safe temperature for the bed after timeout
@@ -661,11 +658,9 @@
 
 // Homing hits each endstop, retracts by these distances, then does a slower bump.
 #define HOMING_BUMP_MM      { 5, 5, 5 }  // (mm) Backoff from endstops after first bump
-#define HOMING_BUMP_DIVISOR { 5, 5, 1 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-#define QUICK_HOME                       // If homing includes X and Y, do a diagonal move initially
-
+#define HOMING_BUMP_DIVISOR { 2, 2, 2 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 //#define HOMING_BACKOFF_POST_MM { 2, 2, 2 }  // (mm) Backoff from endstops after homing
-//#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
+#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
 //#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
@@ -821,7 +816,7 @@
 
   #define ASSISTED_TRAMMING_WIZARD    // Add a Tramming Wizard to the LCD menu
 
-  //#define ASSISTED_TRAMMING_WAIT_POSITION { X_CENTER, Y_CENTER, 30 } // Move the nozzle out of the way for adjustment
+  #define ASSISTED_TRAMMING_WAIT_POSITION { X_CENTER, Y_CENTER, 5 } // Move the nozzle out of the way for adjustment
 
   /**
    * Screw thread:
@@ -854,9 +849,6 @@
 #define DISABLE_INACTIVE_Y false
 #define DISABLE_INACTIVE_Z false  // Set to false if the nozzle will fall down on your printed part when print has finished.
 #define DISABLE_INACTIVE_E false
-
-// If the Nozzle or Bed falls when the Z stepper is disabled, set its resting position here.
-//#define Z_AFTER_DEACTIVATE Z_HOME_POS
 
 // Default Minimum Feedrates for printing and travel moves
 #define DEFAULT_MINIMUMFEEDRATE       0.0     // (mm/s) Minimum feedrate. Set with M205 S.
@@ -983,7 +975,7 @@
  * vibration and surface artifacts. The algorithm adapts to provide the best possible step smoothing at the
  * lowest stepping frequencies.
  */
-//#define ADAPTIVE_STEP_SMOOTHING
+#define ADAPTIVE_STEP_SMOOTHING
 
 /**
  * Custom Microstepping
@@ -1128,6 +1120,10 @@
       #define LED_USER_PRESET_STARTUP       // Have the printer display the user preset color on startup
     #endif
   #endif
+
+  // Insert a menu for preheating at the top level to allow for quick access
+  //#define PREHEAT_SHORTCUT_MENU_ITEM
+
 #endif // HAS_LCD_MENU
 
 // Scroll a longer status message into view
@@ -1212,7 +1208,7 @@
 
   //#define BROWSE_MEDIA_ON_INSERT          // Open the file browser when media is inserted
 
-  #define EVENT_GCODE_SD_ABORT "G28XY"      // G-code to run on SD Abort Print (e.g., "G28XY" or "G27")
+  #define EVENT_GCODE_SD_ABORT "G27"      // G-code to run on SD Abort Print (e.g., "G28XY" or "G27")
 
   #if ENABLED(PRINTER_EVENT_LEDS)
     #define PE_LEDS_COMPLETED_TIME  (30*60) // (seconds) Time to keep the LED "done" color before restoring normal illumination
@@ -1463,13 +1459,13 @@
    */
   //#define STATUS_COMBINE_HEATERS    // Use combined heater images instead of separate ones
   //#define STATUS_HOTEND_NUMBERLESS  // Use plain hotend icons instead of numbered ones (with 2+ hotends)
-  #define STATUS_HOTEND_INVERTED      // Show solid nozzle bitmaps when heating (Requires STATUS_HOTEND_ANIM)
+  //#define STATUS_HOTEND_INVERTED      // Show solid nozzle bitmaps when heating (Requires STATUS_HOTEND_ANIM)
   #define STATUS_HOTEND_ANIM          // Use a second bitmap to indicate hotend heating
   #define STATUS_BED_ANIM             // Use a second bitmap to indicate bed heating
   #define STATUS_CHAMBER_ANIM         // Use a second bitmap to indicate chamber heating
   #define STATUS_CUTTER_ANIM          // Use a second bitmap to indicate spindle / laser active
-  #define STATUS_ALT_BED_BITMAP       // Use the alternative bed bitmap
-  #define STATUS_ALT_FAN_BITMAP       // Use the alternative fan bitmap
+  //#define STATUS_ALT_BED_BITMAP       // Use the alternative bed bitmap
+  //#define STATUS_ALT_FAN_BITMAP       // Use the alternative fan bitmap
   //#define STATUS_FAN_FRAMES 3         // :[0,1,2,3,4] Number of fan animation frames
   #define STATUS_HEAT_PERCENT         // Show heating in a progress bar
   #define BOOT_MARLIN_LOGO_SMALL      // Show a smaller Marlin logo on the Boot Screen (saving 399 bytes of flash)
@@ -1667,11 +1663,11 @@
   //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
   #define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
-  //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
+  #define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false           // Change if Z babysteps should go the other way
   #define BABYSTEP_MILLIMETER_UNITS       // Specify BABYSTEP_MULTIPLICATOR_(XY|Z) in mm instead of micro-steps
   #define BABYSTEP_MULTIPLICATOR_Z  0.01       // (steps or mm) Steps or millimeter distance for each Z babystep
-  #define BABYSTEP_MULTIPLICATOR_XY 1       // (steps or mm) Steps or millimeter distance for each XY babystep
+  #define BABYSTEP_MULTIPLICATOR_XY 0.25       // (steps or mm) Steps or millimeter distance for each XY babystep
 
   #define DOUBLECLICK_FOR_Z_BABYSTEPPING    // Double-click on the Status Screen for Z Babystepping.
   #if ENABLED(DOUBLECLICK_FOR_Z_BABYSTEPPING)
@@ -2000,10 +1996,20 @@
   //#define SERIAL_STATS_DROPPED_RX
 #endif
 
-// Enable an emergency-command parser to intercept certain commands as they
-// enter the serial receive buffer, so they cannot be blocked.
-// Currently handles M108, M112, M410
-// Does not work on boards using AT90USB (USBCON) processors!
+// Monitor RX buffer usage
+// Dump an error to the serial port if the serial receive buffer overflows.
+// If you see these errors, increase the RX_BUFFER_SIZE value.
+// Not supported on all platforms.
+//#define RX_BUFFER_MONITOR
+
+/**
+ * Emergency Command Parser
+ *
+ * Add a low-level parser to intercept certain commands as they
+ * enter the serial receive buffer, so they cannot be blocked.
+ * Currently handles M108, M112, M410, M876
+ * NOTE: Not yet implemented for all platforms.
+ */
 #define EMERGENCY_PARSER
 
 // Bad Serial-connections can miss a received command by sending an 'ok'

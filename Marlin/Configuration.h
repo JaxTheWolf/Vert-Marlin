@@ -108,7 +108,11 @@
 // section used to simplify variables |
 //-------------------------------------
 
-//#define MIX      // Mixing       2 in 1 - 1 Virtual Extruder //#define CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder //#define MIXT     // Mixing T     3 in 1 - 1 Virtual Extruder//#define CYCLOPST // Cyclops T    3 in 1 - 3 Physical Extruder //#define DUALEX   // 2 Extruders  2 in 2 - 2 Physical Extruder & 2 Nozzles
+// MIX      // Mixing       2 in 1 - 1 Virtual Extruder 
+// CYCLOPS  // Cyclops      2 in 1 - 2 Physical Extruder 
+// MIXT     // Mixing T     3 in 1 - 1 Virtual Extruder
+// CYCLOPST // Cyclops T    3 in 1 - 3 Physical Extruder 
+// DUALEX   // 2 Extruders  2 in 2 - 2 Physical Extruder & 2 Nozzles
 
 #if ENABLED (GTA10D)
     #define GTA10
@@ -183,8 +187,8 @@
 #define YHCB2004LCD // Override default LCD with THCB2004 found on new gt2560 V4.1 boards
 //#define FULLGFXLCD  // Override default LCD with FUllGFXLCD found on A20 and its variants
 
-//(Driver Mods) enable 1 (Mod) driver type or none for (Stock/A4988)
-
+//(Driver Mods) enable 1 (Mod) select 1 driver type or none for stock/a4988
+  
 //#define A5984      // Enable A5984   all drivers
 //#define DRV8825    // Enable DRV8825 all drivers
 //#define LV8729     // Enable LV8729  all drivers
@@ -342,8 +346,8 @@
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 #if ANY (CYCLOPS, CYCLOPST)
   #define SINGLENOZZLE
-  //#define SINGLENOZZLE_STANDBY_TEMP // causes compile error check again later
-  //#define SINGLENOZZLE_STANDBY_FAN
+  #define SINGLENOZZLE_STANDBY_TEMP
+  #define SINGLENOZZLE_STANDBY_FAN
 #endif
 
 /**
@@ -665,18 +669,18 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define MAXHOTENDTEMP 260  // Max hotend temp 260
+#define MAXHOTENDTEMP (260 + 15) // Max hotend temp 260
 
-#define HEATER_0_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_1_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_2_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_3_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_4_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_5_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_6_MAXTEMP (MAXHOTENDTEMP + 15)
-#define HEATER_7_MAXTEMP (MAXHOTENDTEMP + 15)
-#define BED_MAXTEMP      (MAXHOTENDTEMP / 2 - 10)
-#define CHAMBER_MAXTEMP  (MAXHOTENDTEMP / 4 - 5)
+#define HEATER_0_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_1_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_2_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_3_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_4_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_5_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_6_MAXTEMP (MAXHOTENDTEMP)
+#define HEATER_7_MAXTEMP (MAXHOTENDTEMP)
+#define BED_MAXTEMP      (MAXHOTENDTEMP / 2)
+#define CHAMBER_MAXTEMP  (MAXHOTENDTEMP / 4)
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -795,7 +799,6 @@
  * the issues involved, don't use chamber PID until someone else verifies that your hardware works.
  */
 //#define PIDTEMPCHAMBER
-
 //#define CHAMBER_LIMIT_SWITCHING
 
 /**
@@ -971,23 +974,16 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-//#define X_DRIVER_TYPE  A4988
-//#define Y_DRIVER_TYPE  A4988
-//#define Z_DRIVER_TYPE  A4988
-//#define X2_DRIVER_TYPE A4988
-//#define Y2_DRIVER_TYPE A4988
-//#define Z2_DRIVER_TYPE A4988
-//#define Z3_DRIVER_TYPE A4988
-//#define Z4_DRIVER_TYPE A4988
-//#define E0_DRIVER_TYPE A4988
-//#define E1_DRIVER_TYPE A4988
-//#define E2_DRIVER_TYPE A4988
-//#define E3_DRIVER_TYPE A4988
-//#define E4_DRIVER_TYPE A4988
-//#define E5_DRIVER_TYPE A4988
-//#define E6_DRIVER_TYPE A4988
-//#define E7_DRIVER_TYPE A4988
 
+#if DISABLED (TMC2208S, TMC2209S, TMC2130S, TMC2160S, TMC26XS, TMC2660S, TMC5130S, TMC5160S, A5984, DRV9925, LV8729, L6470, TB6560, TB6600)
+  #define X_DRIVER_TYPE  A4988
+  #define Y_DRIVER_TYPE  A4988
+  #define Z_DRIVER_TYPE  A4988
+  #define Z2_DRIVER_TYPE A4988
+  #define E0_DRIVER_TYPE A4988
+  #define E1_DRIVER_TYPE A4988
+  #define E2_DRIVER_TYPE A4988
+#endif
 
 #if ENABLED (TMC2208S)
   #define X_DRIVER_TYPE  TMC2208_STANDALONE
@@ -1543,7 +1539,8 @@
  */
 //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
-  #define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+  //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
+  //#define WAIT_FOR_HOTEND         // Wait for hotend to heat back up between probes (to improve accuracy & prevent cold extrude)
 #endif
 //#define PROBING_FANS_OFF          // Turn fans off when probing
 //#define PROBING_STEPPERS_OFF      // Turn steppers off (unless needed to hold position) when probing
@@ -1633,9 +1630,15 @@
 
 //#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed. Also enable HOME_AFTER_DEACTIVATE for extra safety.
 //#define HOME_AFTER_DEACTIVATE   // Require rehoming after steppers are deactivated. Also enable NO_MOTION_BEFORE_HOMING for extra safety.
-//#define UNKNOWN_Z_NO_RAISE      // Don't raise Z (lower the bed) if Z is "unknown." For beds that fall when Z is powered off.
 
-//#define Z_HOMING_HEIGHT  5      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+/**
+ * Set Z_IDLE_HEIGHT if the Z-Axis moves on its own when steppers are disabled.
+ *  - Use a low value (i.e., Z_MIN_POS) if the nozzle falls down to the bed.
+ *  - Use a large value (i.e., Z_MAX_POS) if the bed falls down, away from the nozzle.
+ */
+//#define Z_IDLE_HEIGHT Z_HOME_POS
+
+//#define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
 //#define Z_AFTER_HOMING  5      // (mm) Height to move to after homing Z
@@ -1910,12 +1913,12 @@
   #define LEVEL_CORNERS_Z_HOP       5.0   // (mm) Z height of nozzle between leveling points
   #define LEVEL_CENTER_TOO              // Move to the center after the last corner
 
-  #if ANY (FIX_MOUNTED_PROBE, BLTOUCH)
-    #define LEVEL_CORNERS_USE_PROBE
+  #if HAS_BED_PROBE || ENABLED (BLTOUCH)
+    //#define LEVEL_CORNERS_USE_PROBE
   #endif
 
   #if ENABLED(LEVEL_CORNERS_USE_PROBE)
-    #define LEVEL_CORNERS_PROBE_TOLERANCE 0.05
+    #define LEVEL_CORNERS_PROBE_TOLERANCE 0.025
     #define LEVEL_CORNERS_VERIFY_RAISED   // After adjustment triggers the probe, re-probe to verify
     //#define LEVEL_CORNERS_AUDIO_FEEDBACK
   #endif
