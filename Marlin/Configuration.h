@@ -2300,7 +2300,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-#define SDSUPPORT
+//#define SDSUPPORT
 #if ENABLED (STM32) && ENABLED (SDSUPPORT)
   #define SDIO_SUPPORT
 #endif
