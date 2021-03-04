@@ -716,9 +716,9 @@
     #define  DEFAULT_Ki 3.61
     #define  DEFAULT_Kd 145.39
   #else // A10 & A20
-    #define  DEFAULT_Kp 33.29
-    #define  DEFAULT_Ki 3.83
-    #define  DEFAULT_Kd 72.28
+    #define  DEFAULT_Kp 26.59
+    #define  DEFAULT_Ki 2.24
+    #define  DEFAULT_Kd 78.95
 
 #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
@@ -772,9 +772,9 @@
     #define  DEFAULT_bedKi 54.132
     #define  DEFAULT_bedKd 602.870
   #else //A10 & A20
-    #define  DEFAULT_bedKp 42.96
-    #define  DEFAULT_bedKi 8.32
-    #define  DEFAULT_bedKd 147.80
+    #define  DEFAULT_bedKp 171.85
+    #define  DEFAULT_bedKi 25.59
+    #define  DEFAULT_bedKd 769.66
   #endif
 
   // FIND YOUR OWN: "M303 U1 E-1 S90 C8" to run autotune on the bed at 90 degreesC for 8 cycles.
