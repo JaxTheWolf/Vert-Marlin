@@ -723,9 +723,9 @@
     #define  DEFAULT_Ki 3.61
     #define  DEFAULT_Kd 145.39
   #else // A10 & A20
-    #define  DEFAULT_Kp 26.59
-    #define  DEFAULT_Ki 2.24
-    #define  DEFAULT_Kd 78.95
+    #define  DEFAULT_Kp 31.7
+    #define  DEFAULT_Ki 3.1
+    #define  DEFAULT_Kd 81.2
 
 #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
